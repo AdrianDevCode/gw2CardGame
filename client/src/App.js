@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
-import Card from './Card/Card';
+import Board from "./Board/BoardGame";
 
-class App extends Component {
+
+export default class App extends Component {
   render() {
     return (
       <div className="App">
-      <Card />
-        <img className="boardBG" src="../img/boardWallPaper.jpg" alt=""/>
-        
+        <Board cardPosition={[1,0]} />
       </div>
     );
   }
 }
-
-export default App;
