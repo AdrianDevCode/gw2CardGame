@@ -1,5 +1,11 @@
 .card {
-    height: 100px;
-    width: 100px;
-    background-color: blue;
+    height: 200px;
+    width: 200px;
+    background-color: #2749116b;
+    border: solid 2px black;
+}
+.numbers {
+    width: 40px;
+    text-align: center;
+    padding-top: 0.5em;
 }
