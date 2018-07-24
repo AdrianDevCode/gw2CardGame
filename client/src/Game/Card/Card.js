@@ -3,7 +3,8 @@ import './Card.css';
 
 export default class Card extends Component {
     render() {
-        return(
+    
+    return(
             <div className='card'>
                 <div className="numbers">
                     <div>1</div>
@@ -14,3 +15,4 @@ export default class Card extends Component {
         )
     }
 }
+
