@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
-import Board from "./Board/BoardGame";
-
+import Board from './Game/Board/BoardGame';
+import HomePage from './Home/HomePage';
 
 export default class App extends Component {
   render() {
     return (
       <div className="App">
-        <Board cardPosition={[1,0]} />
+        <HomePage />
       </div>
     );
   }
