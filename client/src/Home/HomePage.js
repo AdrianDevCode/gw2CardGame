@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
 import Nav from './Nav/Nav';
 import Body from './Body/Body';
-import './HomePage.css';
 
 export default class HomePage extends Component {
     render(){
         return(
             <div>
-                <Body ><Nav /> </Body>
+                <Body ><Nav /></Body>
             </div>
         )
     }
