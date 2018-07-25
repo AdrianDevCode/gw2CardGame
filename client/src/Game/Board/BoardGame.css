@@ -3,7 +3,7 @@
     width: "100%";
     display: 'flex';
     flex-wrap: 'wrap';
-    background: url("./gw2BG.jpg") center center no-repeat;
+    background: url("/img/boardBG.jpg") center center no-repeat;
     background-size: cover;
     
 }
