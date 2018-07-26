@@ -5,9 +5,6 @@
     justify-content: center;
     align-items: center;
 }
-button:focus {
-    outline: 0;
-}
 span {
     font-size: 50px;
     font-family: 'Ruslan Display', cursive;
@@ -16,24 +13,34 @@ span {
     background: -webkit-linear-gradient(rgb(218, 16, 22), rgb(255, 226, 60));
     background-clip: inherit;
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    -webkit-text-fill-color: transparent;  
 }
 .register-button span {
     font-size: 35px;
     letter-spacing: 1px;
 }
 .login-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 200px;
     width: 200px;
     margin-right: 15%;
     background: url("/img/GW2logo.png") center center no-repeat;
     border-radius: 50%;
+    text-decoration: none;
+    text-align: center;
 }
 
 .register-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 200px;
     width: 200px;
     margin-left: 15%;
     background: url("/img/GW2logoRev.png") center center no-repeat;
     border-radius: 50%;
+    text-decoration: none;
+    text-align: center;
 }
