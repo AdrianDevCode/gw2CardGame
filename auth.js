@@ -21,7 +21,7 @@ const setupAuth = (app) => {
     passport.use(new GitHubStrategy({
         clientID: process.env.GITHUB_ID,
         clientSecret: process.env.GITHUB_SECRET,
-        callbackURL: "http://localhost:3001/auth/github/login"
+        callbackURL: "/github/auth/callback"
     }, (accessToken, refreshToken, profile, done) => {
         models.User.findOrCreate({
             where: {
@@ -30,7 +30,6 @@ const setupAuth = (app) => {
             defaults: {
                 username: profile.login,
                 githubId: profile.id,
-                email: profile.email,
             }
         })
         .then(result => {
@@ -82,7 +81,7 @@ const setupAuth = (app) => {
     app.use(passport.session());
 
     // this is a simple API to check if there is a user
-    app.get('/api/user', (req, res, next) => {
+    app.get('/user', (req, res, next) => {
         if (req.user) {
             return res.json({ user: req.user })
         } else {
@@ -91,9 +90,9 @@ const setupAuth = (app) => {
     })
 
     // use the github strategy
-    app.get('/auth/github', passport.authenticate('github'));
+    app.get('/auth/github/', passport.authenticate('github'));
 
-    app.get('/auth/github/redirect',
+    app.get('/auth/github/callback',
         passport.authenticate('github', {
             // if this works, redirect back to the react app homepage
             successRedirect: '/',
@@ -116,7 +115,8 @@ const setupAuth = (app) => {
             if (currentUser) {
                 // return an error
                 return res.json({
-                    error: `Sorry, already a username '${username}' is already taken`
+                    error: `Sorry,  a username '${username}' is already taken`
+
                 });
             }
             // otherwise, create a new user and encrypt the password
