@@ -21,7 +21,7 @@ const setupAuth = (app) => {
     passport.use(new GitHubStrategy({
         clientID: process.env.GITHUB_ID,
         clientSecret: process.env.GITHUB_SECRET,
-        callbackURL: "/github/auth/callback"
+        callbackURL: "https://guild-wars-2-card-game.herokuapp.com/github/auth/callback"
     }, (accessToken, refreshToken, profile, done) => {
         models.User.findOrCreate({
             where: {
