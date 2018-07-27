@@ -5,13 +5,13 @@ import axios from 'axios';
 export default class Register extends Component {
     constructor(props) {
         super(props);
-        this.login = this.login.bind(this);
+        this.register = this.register.bind(this);
     }
-    login = (e) => {
+    register = (e) => {
         e.preventDefault();
         axios({
             method: 'post',
-            url: '/auth/login',
+            url: '/auth/signup',
             data: {
                 username: e.target.username.value,
                 password: e.target.password.value,
@@ -32,10 +32,10 @@ export default class Register extends Component {
     render() {
         return (
             <div className="registerLocal">
-                <form onSubmit={this.login}>
+                <form onSubmit={this.register}>
                     <div className="form-field">
                         <label htmlFor="username">Username:</label>
-                        <input name="username" type="text" />
+                        <input name="username" type="text" className="text" />
                     </div>
                     <div className="form-field">
                         <label htmlFor="password">Password:</label>
