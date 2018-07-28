@@ -1,11 +1,16 @@
 import React, {Component} from "react";
+import { Redirect } from 'react-router-dom';
 import "./Register.css";
 import axios from 'axios';
 
 export default class Register extends Component {
     constructor(props) {
         super(props);
+        this.state= {
+            redirect: false,
+        }
         this.register = this.register.bind(this);
+        
     }
     register = (e) => {
         e.preventDefault();
@@ -20,6 +25,7 @@ export default class Register extends Component {
         .then((res) => {
             this.setState({
                 user: res.data.user,
+                redirect: true,
             })
             console.log(res);
         })
@@ -30,6 +36,9 @@ export default class Register extends Component {
 
     
     render() {
+        if (this.state.redirect) {
+            return <Redirect to='/home' />
+        }
         return (
             <div className="registerLocal">
                 <form onSubmit={this.register}>

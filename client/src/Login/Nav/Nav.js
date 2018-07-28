@@ -13,8 +13,6 @@ export default class Nav extends Component {
                 <Link to="/loginSelection" className="login-button"><span>LOGIN</span></Link>
                 <Link to="/register" className="register-button"><span>REGISTER</span></Link>
                 
-                <Route path="/loginSelection" component={LoginSelection}/>
-                <Route path="/register" component={Register}/>
             </div>
         )
     }
