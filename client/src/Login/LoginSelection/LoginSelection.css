@@ -1,6 +1,7 @@
 .loginChoices {
   position: absolute;
   top: 40%;
+  left: calc(50% - 200px);
   display: flex;
   justify-content: center;
   align-items: center;

@@ -10,7 +10,7 @@ var db        = {};
 
 if (process.env.DB_HOSTNAME) {
   var sequelize = new Sequelize(`postgres://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_HOSTNAME}/${process.env.DB_NAME}`);
-} else if (config.use_env_variable) {
+} if (config.use_env_variable) {
   var sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
   var sequelize = new Sequelize(config.database, config.username, config.password, config);
@@ -31,6 +31,8 @@ Object.keys(db).forEach(modelName => {
     db[modelName].associate(db);
   }
 });
+
+sequelize.sync()
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
