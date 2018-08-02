@@ -1,14 +1,14 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var UserCards = sequelize.define('UserCards', {
+  var AllCards = sequelize.define('AllCards', {
     petID: DataTypes.INTEGER,
     petName: DataTypes.STRING,
     petDescription: DataTypes.STRING,
-    petIcon: DataTypes.STRING
+    petIcon: DataTypes.STRING,
   }, {});
-  UserCards.associate = function(models) {
+  AllCards.associate = function(models) {
     // associations can be defined here
-    UserCards.belongsTo(models.User);
+    AllCards.hasMany(models.UserCards);
   };
-  return UserCards;
+  return AllCards;
 };

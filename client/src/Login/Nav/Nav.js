@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-import {Link, Route} from 'react-router-dom';
-import LoginSelection from "../LoginSelection/LoginSelection";
-import Register from "../Register/Register";
+import {Link} from 'react-router-dom';
 import './Nav.css';
 
 
