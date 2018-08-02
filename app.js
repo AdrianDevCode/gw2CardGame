@@ -4,8 +4,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const dotenv = require('dotenv');
-
-const apiRouter = require('./routes');
+const cards = require("./routes/cards.js");
 const setupAuth = require('./auth');
 
 dotenv.load();
@@ -17,9 +16,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public'))); // change later to 'client/build'
-
+app.use("/cards", cards);
+app.set('views', __dirname + '/views'); // general config
+app.set('view engine', 'jade');
 setupAuth(app);
-app.use('/routes', apiRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

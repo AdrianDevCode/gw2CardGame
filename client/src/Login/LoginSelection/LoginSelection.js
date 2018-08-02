@@ -1,10 +1,15 @@
 import React, {Component} from "react";
 import "./LoginSelection.css";
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 export default class LoginSelection extends Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
+        this.state = {
+            user: null,
+            redirect: false,
+        }
         this.login = this.login.bind(this);
         this.github = this.github.bind(this);
     }
@@ -21,10 +26,10 @@ export default class LoginSelection extends Component {
         })
         .then((res) => {
             this.setState({
-                user: res.data.user,
-                showSignupForm: false,
+                user: res.data.username,
+                redirect: true,
             })
-            console.log(res);
+            console.log(res)
         })
         .catch((res) => {
             console.log(res);
@@ -38,6 +43,12 @@ export default class LoginSelection extends Component {
         })
     }
     render() {
+        if (this.state.redirect) {
+            return <Redirect to={{
+                pathname: '/home',
+                state: { referrer: this.state }
+              }}/>
+        }
         return (
             
             <div className="loginChoices">

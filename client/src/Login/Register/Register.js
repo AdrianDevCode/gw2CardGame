@@ -8,10 +8,30 @@ export default class Register extends Component {
         super(props);
         this.state= {
             redirect: false,
+            user: null,
+            cards: null,
+            
         }
         this.register = this.register.bind(this);
         
     }
+    getPetIDs(data){
+        let petIDs = data.map(card => {
+           return this.cardIDs = card.petID
+        })
+        return petIDs;
+    }
+    componentWillMount() {
+        axios({
+            method: 'get',
+            url: '/cards/getCards'
+          }).then(randomCards => {
+              this.setState({
+                cards: randomCards.data,
+              }) 
+          })
+    }
+    
     register = (e) => {
         e.preventDefault();
         axios({
@@ -20,14 +40,15 @@ export default class Register extends Component {
             data: {
                 username: e.target.username.value,
                 password: e.target.password.value,
+                cards: this.state.cards
+                
             }
         })
         .then((res) => {
             this.setState({
-                user: res.data.user,
+                user: res.data.username,
                 redirect: true,
             })
-            console.log(res);
         })
         .catch((res) => {
             console.log(res);
@@ -36,9 +57,14 @@ export default class Register extends Component {
 
     
     render() {
-        if (this.state.redirect) {
-            return <Redirect to='/home' />
+        if (this.state.redirect) { 
+            
+            return <Redirect to={{
+                pathname: '/home',
+                state: { referrer: this.state }
+              }}/>
         }
+        console.log(this.state)
         return (
             <div className="registerLocal">
                 <form onSubmit={this.register}>
@@ -51,7 +77,8 @@ export default class Register extends Component {
                         <input name="password" type="password" />
                     </div>
                     <button type="submit" className="registerButton">Register</button>
-                </form>     
+                </form> 
+                   
             </div>
         )
     }
