@@ -21,7 +21,7 @@ const setupAuth = (app) => {
     passport.use(new GitHubStrategy({
         clientID: process.env.GITHUB_ID,
         clientSecret: process.env.GITHUB_SECRET,
-        callbackURL: "https://guild-wars-2-card-game.herokuapp.com/github/auth/callback"
+        callbackURL: "/auth/github/callback"
     }, (accessToken, refreshToken, profile, done) => {
         models.User.findOrCreate({
             where: {
@@ -90,12 +90,12 @@ const setupAuth = (app) => {
     })
 
     // use the github strategy
-    app.get('/auth/github/', passport.authenticate('github'));
+    app.get('/auth/github', passport.authenticate('github'));
 
     app.get('/auth/github/callback',
         passport.authenticate('github', {
             // if this works, redirect back to the react app homepage
-            successRedirect: '/',
+            successRedirect: '/home',
             // otherwise, go to the react app login
             failureRedirect: '/login',
         })
@@ -103,7 +103,7 @@ const setupAuth = (app) => {
 
     app.post('/auth/signup', (req, res) => {
         // destructure username and password off req.body into new constants
-        const { username, password } = req.body;
+        const { username, password, cards } = req.body;
         // Check if there is a user with the given username
         models.User.findOne({
             where: {
@@ -122,10 +122,22 @@ const setupAuth = (app) => {
             // otherwise, create a new user and encrypt the password
             models.User.create({
                 'username': username,
-                'password': bcrypt.hashSync(password, 10)
+                'password': bcrypt.hashSync(password, 10),
+
             })
             .then((newUser) => {
                 // we don't want to return everything, so put all the fields into a new object
+               for(let i = 0; i < 5; i++){
+                    models.UserCards.create({
+                        'petID': cards[i].petID,
+                        'petName': cards[i].petName,
+                        'petDescription': cards[i].petDescription,
+                        'petIcon': cards[i].petIcon,
+                        'UserId': newUser.id,
+                        'attackNumbers': cards[i].attackNumbers.toString()
+                    })
+               }
+                
                 const data = {
                     ...newUser.get()
                 };
@@ -151,7 +163,11 @@ const setupAuth = (app) => {
                 console.log(`Removing password from user:`, cleanUser.username);
                 delete cleanUser.password
             }
-            res.json({ user: cleanUser });
+            let userID = cleanUser.id;
+// ~~~~~~ do this part now ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            models.UserCards.findAll({raw: true, where: userID})
+            res.json({ username: cleanUser });
+            console.log(cleanUser.id)
         }
     )
 
