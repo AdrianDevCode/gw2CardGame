@@ -21,7 +21,7 @@ const setupAuth = (app) => {
     passport.use(new GitHubStrategy({
         clientID: process.env.GITHUB_ID,
         clientSecret: process.env.GITHUB_SECRET,
-        callbackURL: "/auth/github/callback"
+        callbackURL: "https://guild-wars-2-card-game.herokuapp.com/auth/github/callback"
     }, (accessToken, refreshToken, profile, done) => {
         models.User.findOrCreate({
             where: {
@@ -97,7 +97,7 @@ const setupAuth = (app) => {
             // if this works, redirect back to the react app homepage
             successRedirect: '/home',
             // otherwise, go to the react app login
-            failureRedirect: '/login',
+            failureRedirect: '/',
         })
     );
 
