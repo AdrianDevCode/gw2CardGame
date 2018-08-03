@@ -8,6 +8,7 @@ export default class LoginSelection extends Component {
         super();
         this.state = {
             user: null,
+            cards: null,
             redirect: false,
         }
         this.login = this.login.bind(this);
@@ -27,6 +28,7 @@ export default class LoginSelection extends Component {
         .then((res) => {
             this.setState({
                 user: res.data.username,
+                cards: res.data.cards,
                 redirect: true,
             })
             console.log(res)
@@ -52,12 +54,7 @@ export default class LoginSelection extends Component {
         return (
             
             <div className="loginChoices">
-                
-                <button onClick={this.github} className="loginBtn loginBtn-github">Login with Github</button>
-                
-                <button className="loginBtn loginBtn-google">Login with Google</button>
-
-                <div className="loginLocal">
+               <div className="loginLocal">
                     <form onSubmit={this.login}>
                         <div className="form-field">
                             <label htmlFor="username">Username:</label>
@@ -68,11 +65,11 @@ export default class LoginSelection extends Component {
                             <input name="password" type="password" />
                         </div>
                         <button type="submit" className="registerButton">Login</button>
-                    </form>     
-                </div>
-            </div>
-           
-    
+                    </form>
+                    <button onClick={this.github} className="loginBtn loginBtn-github">Login with Github</button>
+                    <button className="loginBtn loginBtn-google">Login with Google</button>  
+                </div> 
+            </div>     
         )
     }
 }

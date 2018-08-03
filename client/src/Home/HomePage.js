@@ -6,7 +6,7 @@ import Dragula from 'react-dragula';
 export default class HomePage extends Component {
     
     render(){
-        if(this.props.location.state.referrer.cards){ 
+         
             let cards = Array.from(this.props.location.state.referrer.cards);
       
             const cardsJSX = cards.map((card) => {
@@ -24,7 +24,7 @@ export default class HomePage extends Component {
                     </div>
                 )
             })      
-        }
+        
         return(
             
             <div>
@@ -32,7 +32,7 @@ export default class HomePage extends Component {
                     <Nav />
                </div>
                <div className="cards" ref={this.dragulaDecorator}>
-                   
+                   {cardsJSX}
                </div>
             </div>
           
