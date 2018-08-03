@@ -41,7 +41,7 @@ export default class LoginSelection extends Component {
         event.preventDefault();
         axios({
             method: 'get',
-            url: '/auth/github'
+            url: '/auth/github/callback'
         })
     }
     render() {

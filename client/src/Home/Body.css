@@ -7,7 +7,7 @@ html body {
 .cards {
    display: flex;
    width: 100%;
-   min-height: 60vh;
+   min-height: 70vh;
    flex-direction: row;
    justify-content: center;
    flex-wrap: wrap;
