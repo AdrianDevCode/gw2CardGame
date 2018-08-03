@@ -11,7 +11,7 @@ dotenv.load();
 
 const app = express();
 app.all('*', (req, res, next) => {
-  res.header("Access-Control-Allow-Origin", config.clientURL);
+  res.header("Access-Control-Allow-Origin", "https://guild-wars-2-card-game.herokuapp.com/");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
   res.header("Access-Control-Allow-Credentials", true);
