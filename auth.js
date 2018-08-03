@@ -164,10 +164,17 @@ const setupAuth = (app) => {
                 delete cleanUser.password
             }
             let userID = cleanUser.id;
-// ~~~~~~ do this part now ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-            models.UserCards.findAll({raw: true, where: userID})
-            res.json({ username: cleanUser });
-            console.log(cleanUser.id)
+            // find all cards that belong to this user and put them in array
+            models.UserCards.findAll({raw: true, where: {UserId: userID}}).then(card => {
+                let petCards = []
+                for(let i = 0; i < 5; i++){
+                    
+                    card[i].attackNumbers = card[i].attackNumbers.split(",")
+                    petCards.push(card[i]);
+                }
+                console.log(petCards)
+                res.json({ username: cleanUser, cards: petCards });
+            })   
         }
     )
 

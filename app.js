@@ -15,7 +15,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public'))); // change later to 'client/build'
+app.use(express.static(path.join(__dirname, 'client/build')));
 app.use("/cards", cards);
 app.set('views', __dirname + '/views'); // general config
 app.set('view engine', 'jade');
