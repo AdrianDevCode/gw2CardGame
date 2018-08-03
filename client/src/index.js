@@ -6,4 +6,4 @@ import App from './App';
 
 const rootEl = document.getElementById('root');
 
-  ReactDOM.render(<Router><App /></Router>,rootEl);
+ReactDOM.render(<Router><App /></Router>,rootEl);
