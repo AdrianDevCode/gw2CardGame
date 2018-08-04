@@ -17,12 +17,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'client/build')));
-app.use("/cards", cards);
-app.use('/users', userRouter)
 app.set('views', __dirname + '/views'); // general config
 app.set('view engine', 'jade');
+
 setupAuth(app);
 
+app.use("/cards", cards);
+app.use('/users', userRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
