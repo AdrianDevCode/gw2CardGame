@@ -45,6 +45,9 @@ export default class Register extends Component {
             }
         })
         .then((res) => {
+            if(res.data.error){
+                return alert("sorry username already taken"); 
+            }
             this.setState({
                 user: res.data.username,
                 redirect: true,

@@ -1,10 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const models = require('../models');
 
-router.get('/cardsID', function(req, res, next) {
-  let cardsID = req.data;
+router.get("/board", (req, res) => {
+  res.send({ response: "I am alive" }).status(200);
 });
-
 
 module.exports = router;
