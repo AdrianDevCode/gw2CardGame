@@ -1,13 +1,16 @@
 var express = require('express');
 var router = express.Router();
 const ensureAuthenticated = require('../auth').ensureAuthenticated;
-const User = require('../models/user');
+const models = require('../models');
 
 router.all('*', ensureAuthenticated);
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+  models.User.findById(req.user)
+  .then((user) => {
+    res.send(user);
+  })
 });
 
 module.exports = router;

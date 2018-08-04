@@ -66,7 +66,7 @@ export default class LoginSelection extends Component {
                         </div>
                         <button type="submit" className="registerButton">Login</button>
                     </form>
-                    <button onClick={this.github} className="loginBtn loginBtn-github">Login with Github</button>
+                    <a href="/auth/github"><button className="loginBtn loginBtn-github">Login with Github</button></a>
                     <button className="loginBtn loginBtn-google">Login with Google</button>  
                 </div> 
             </div>     

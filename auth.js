@@ -95,7 +95,7 @@ const setupAuth = (app) => {
     app.get('/auth/github/callback',
         passport.authenticate('github', {
             // if this works, redirect back to the react app homepage
-            successRedirect: '/home',
+            successRedirect: '/user',
             // otherwise, go to the react app login
             failureRedirect: '/',
         })
