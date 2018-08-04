@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './Nav.css';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import axios from 'axios';
 
 export default class Nav extends Component {
@@ -35,7 +35,7 @@ export default class Nav extends Component {
         }
         return(
             <div className='nav-bar'>
-                <button className="play-button"><span>PLAY</span></button>
+                <Link to='/board'><button  className="play-button"><span>PLAY</span>></button></Link>
                 <button onClick={this.logout} className="logout-button"><span>LOGOUT</span></button>
                 
             </div>

@@ -40,7 +40,7 @@ export default class LoginSelection extends Component {
     github = (event) => {
         event.preventDefault();
         axios({
-            method: 'get',
+            method: 'post',
             url: '/auth/github'
         }).then((res) => {
             this.setState({
