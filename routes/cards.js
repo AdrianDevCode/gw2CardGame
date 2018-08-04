@@ -33,7 +33,7 @@ router.get("/getCards", function(req, res, next){
             card[i].attackNumbers = randomNumbers();
             petCards.push(card[i]);
         }
-        console.log(petCards)
+        
          res.json(petCards)
        
       })

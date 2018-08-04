@@ -42,7 +42,17 @@ export default class LoginSelection extends Component {
         axios({
             method: 'get',
             url: '/auth/github'
+        }).then((res) => {
+            this.setState({
+                user: res.data.username,
+                cards: res.data.cards,
+                redirect: true,
+            })
+            console.log(res)
         })
+        .catch((res) => {
+            console.log(res);
+        });
     }
     render() {
         if (this.state.redirect) {
