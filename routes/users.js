@@ -18,11 +18,7 @@ router.get('/current', (req, res, next) => {
     if (req.user) {
         // req.user will have been deserialized at this point, so we need
             // to get the values and remove any sensitive ones
-            const cleanUser = {...req.user.get()};
-            if (cleanUser.password) {
-                console.log(`Removing password from user:`, cleanUser.username);
-                delete cleanUser.password
-            }
+            const cleanUser = {...req.user};
             let userID = cleanUser.id;
             // find all cards that belong to this user and put them in array
             models.UserCards.findAll({raw: true, where: {UserId: userID}}).then(card => {
