@@ -80,14 +80,6 @@ const setupAuth = (app) => {
 
     app.use(passport.session());
 
-    // this is a simple API to check if there is a user
-    app.get('/user', (req, res, next) => {
-        if (req.user) {
-            return res.json({ user: req.user })
-        } else {
-            return res.json({ user: null })
-        }
-    })
 
     // use the github strategy
     app.get('/auth/github', passport.authenticate('github'));
@@ -95,7 +87,7 @@ const setupAuth = (app) => {
     app.get('/auth/github/callback',
         passport.authenticate('github', {
             // if this works, redirect back to the react app homepage
-            successRedirect: '/home',
+            successRedirect: '/users/current',
             // otherwise, go to the react app login
             failureRedirect: '/',
         })
