@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import Board from './Game/Board/BoardGame';
+import SinglePlayer from './Game/Board/singleplayer';
+//import Multiplayer from './Game/Board/multiplayer';
 import HomePage from './Home/HomePage';
 import LoginPage from './Login/LoginPage';
 import Register from "./Login/Register/Register";
@@ -31,7 +32,7 @@ export default class App extends Component {
         <Route path="/loginSelection" component={LoginSelection} />
         <Route path="/register" component={Register} />
         <Route path="/home" component={HomePage} />
-        <Route path="/board" component={Board} /> 
+        <Route path="/singleplayer" component={SinglePlayer} /> 
         
       </div>
     );
