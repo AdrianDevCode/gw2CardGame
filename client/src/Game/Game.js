@@ -54,11 +54,10 @@ const TicTacToe = Game({
     drawCard(G, ctx, id){
       let deck = [...G.p1Deck];
       let hand = [...G.hand];
-
-      if(hand === null){
-        hand = deck[id];
+      
+      hand = deck[id];
         //turnInvisible(deck[id]); 
-      }
+      
     }
     
 
