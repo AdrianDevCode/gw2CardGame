@@ -14,15 +14,13 @@ class Board extends React.Component {
   onBoardClick = id => {
     if (this.isActive(id)) {
       this.props.moves.clickBoardCell(id);
+      //this.props.events.endPhase;
     }
   };
-  onP1Click = id => {
-    //get theh content of clicked card
-  }
 
   isActive(id) {
     return this.props.isActive && this.props.G.cells[id] === null;
-  }
+  };
 
   render() {
     let tbody = [];
@@ -39,7 +37,7 @@ class Board extends React.Component {
             className={this.isActive(id) ? 'active' : ''}
             onClick={() =>  {
               this.onBoardClick(id)
-              console.log(id)
+              
              }}
           >
             {this.props.G.cells[id]}
@@ -50,20 +48,30 @@ class Board extends React.Component {
       tbody.push(<tr key={i}>{cells}</tr>);
       
     }
-    for(let i = 5; i < 10; i++){
-     const id = i * 2;
+    for(let i = 0; i < 5; i++){
+     const id = i;
       player1Deck.push( <td
         key={id}
-        className={this.isActive(id) ? 'active' : ''}
         onClick={() => {
-           this.onBoardClick(id)
-           console.log(id)
+           this.props.moves.drawCard(id)
+           
           }}
       >
-        {this.props.G.p1Cells[id]}
-      </td>)
-      
+        {this.props.G.p1Deck[i]}
+        </td>)   
     }
+    for(let i = 0; i < 5; i++){
+      const id = i;
+       player2Deck.push( <td
+         key={id}
+         onClick={() => {
+            this.props.moves.drawCard(id)
+            
+           }}
+       >
+         {this.props.G.p2Deck[i]}
+         </td>)   
+     }
 
     let winner = null;
     if (this.props.ctx.gameover) {
@@ -90,9 +98,10 @@ class Board extends React.Component {
         <table id="board">
           <tbody>{tbody}</tbody>
         </table>
-        <table className="player2"></table>
+        <table className="player2">
+        <tbody>{player2Deck}</tbody>
+        </table>
         {player}
-        {winner}
         
       </div>
     );
