@@ -32,45 +32,53 @@ const TicTacToe = Game({
   name: 'tic-tac-toe',
 
   setup: () => ({
-    p1Deck: Array(5).fill(null),
+    p1Deck: [10,11,12,13,14],
     cells: Array(9).fill(null),
-    p2Deck: Array(5).fill(null),
-    hand: null
+    p2Deck: [20,21,22,23,24],
+    hand: [null]
   }),
 
   moves: {
-    clickBoardCell(G, ctx, id) {
+    clickBoardCell(G,ctx, id) {
       const cells = [...G.cells];
-
-      if (cells[id] === null) {
-        cells[id] = ctx.currentPlayer;
-      }
-
-      return { ...G, cells };
-    },
-
-    //click on p1deck to choose card and move it to hand.
-
-    drawCard(G, ctx, id){
-      let deck = [...G.p1Deck];
       let hand = [...G.hand];
 
-      if(hand === null){
-        hand = deck[id];
-        //turnInvisible(deck[id]); 
+      if (cells[id] === null) {
+        cells[id] = hand[0];
       }
+      
+      return { ...G, cells, hand };
+    },
+
+    drawCard(G, ctx, id){
+      let deck = [];
+      ctx.currentPlayer === "0" ? deck = [...G.p1Deck] : deck = [...G.p2Deck]
+      let hand = [...G.hand];
+      
+      hand = [];
+      hand.push(deck[id]);
+        console.log(hand.length)
+      return {...G, hand}
+      //turnInvisible(deck[id]); 
+          
     }
-    
-
-    // click on p2cells to choose card and copy it to holding box.
-
-    //click on cells to put the chosen card inside the cell.
-
-
   },
 
   flow: {
-    movesPerTurn: 1,
+    // phases: [
+    //   {
+    //     name: 'draw phase',
+    //     allowedMoves: ['drawCard'],
+    //     endPhaseIf: G => G.hand.length = 1
+    //   },
+    //   {
+    //     name: 'play phase',
+    //     allowedMoves: ['clickBoardCell'],
+    //     endPhaseIf: G => G.hand.length = 0
+    //   }
+    // ],
+
+    movesPerTurn: 2,
 
     endGameIf: (G, ctx) => {
       if (IsVictory(G.cells)) {
