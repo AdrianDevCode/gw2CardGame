@@ -5,11 +5,15 @@ import './Card.css';
 export default class Card extends Component {
     
     
+    
     render() {
+        
         const cardsJSX = this.props.cards.map((card) => {
+            let petName = card.petName.replace(/juvenile/i, "");
+        
             return(
-                <Draggable handle=".handle" position={null} onStart={this.handleStart} onDrag={this.handleDrag} onStop={this.handleStop}>
-                    <div className="handle card" key={card.id}>
+                <Draggable handle=".handle" position={null} onStart={this.handleStart} onDrag={this.handleDrag} onStop={this.handleStop} key={card.id}>
+                    <div className="handle card" >
                         <div className="border">
                             <div className="cardImage" style={{backgroundImage: `url(${card.petIcon})`}}>
                                 <div className="numbers">
@@ -20,7 +24,7 @@ export default class Card extends Component {
                                 
                             </div>
                             <div className="frame-header">
-                            <h4 className="name">{card.petName}</h4>
+                            <h4 className="name">{petName}</h4>
                             </div>
                         </div>
                         <div className="frame-text-box">
