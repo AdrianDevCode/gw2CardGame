@@ -37,3 +37,15 @@ span {
     background: url("/img/GW2logoRev.png") center center no-repeat;
     border-radius: 50%;
 }
+@media only screen and (min-width : 320px) and (max-width : 480px) {
+    .play-button, .logout-button {
+        height: 100px;
+        width: 100px;
+    }
+    span {
+        font-size: 28px;
+    }
+    .logout-button span {
+        font-size: 21px;
+    }
+}
