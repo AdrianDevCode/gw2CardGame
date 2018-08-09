@@ -76,9 +76,55 @@ p{
     margin: 0 10px;
     background: #d3ded6;
     background-image: url(https://image.ibb.co/dFcNx7/tile_bg_2.jpg);
-    font-size: 1.2em;
+    font-size: 17px;
     height: 90px;
     box-shadow: 
     0 0 0 5px #26714A,
     -3px 3px 2px 5px #171314;
+}
+@media only screen and (min-width : 320px) and (max-width : 480px) {
+    .card {
+        height: 150px;
+        width: 100px;
+    }
+    .numbers{
+        width: 30px;
+        font-size: 0.8em;
+    }
+    .cardImage {
+        height: 70px;
+    }
+    h4 {
+        font-size: 1px;
+    }
+    p{
+        font-size: 20%;
+    }
+    .frame-header {
+        margin-left: 2.5px;
+    margin-right: 2.5px;
+    padding: 4px 0;
+    margin-bottom: 3px;
+    border-bottom: 2px solid #a9a9a9;
+    border-left: 1px solid #a9a9a9;
+    border-top: 0.5px solid #fff;
+    border-right: 0.5px solid #fff;
+    }
+    .name {
+        font-size: 0.5em;
+        text-align: center;
+        font-weight: 600;
+        height: 1.5px;
+        margin-top: -3px;
+    }
+    .frame-text-box {
+        margin: 0 5px;
+        background: #d3ded6;
+        background-image: url(https://image.ibb.co/dFcNx7/tile_bg_2.jpg);
+        font-size: 0.9em;
+        height: 60px;
+        box-shadow: 
+        0 0 0 5px #26714A,
+        -3px 3px 2px 5px #171314;
+    }
 }
