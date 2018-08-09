@@ -73,11 +73,11 @@ p{
 }
 
 .frame-text-box {
-    margin: 0 10px;
+    margin: 0 5px;
     background: #d3ded6;
     background-image: url(https://image.ibb.co/dFcNx7/tile_bg_2.jpg);
     font-size: 17px;
-    height: 90px;
+    height: 93px;
     box-shadow: 
     0 0 0 5px #26714A,
     -3px 3px 2px 5px #171314;
@@ -121,7 +121,7 @@ p{
         margin: 0 5px;
         background: #d3ded6;
         background-image: url(https://image.ibb.co/dFcNx7/tile_bg_2.jpg);
-        font-size: 0.9em;
+        font-size: 30px;
         height: 60px;
         box-shadow: 
         0 0 0 5px #26714A,
