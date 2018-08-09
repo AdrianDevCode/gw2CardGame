@@ -19,12 +19,12 @@ const App = Client({
     },
     
   }),
-  
+
 });
 
 const Singleplayer = () => (
   <div style={{ padding: 50 }}>
-    <h1>Singleplayer</h1>
+    
     <App gameID="single" />
   </div>
 );

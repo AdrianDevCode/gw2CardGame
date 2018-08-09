@@ -1,6 +1,51 @@
 
 import { Game } from 'boardgame.io/core';
 
+function cardsAttack(currentCard, adjecentCard, adjecentCardPos) {
+  let currentCardAttack = 0;
+  let adjecentCardAttack = 0; 
+  const pos = adjecentCardPos; // ex. "right"
+  const attackPositions = ["top", "right", "bottom", "left"]; // [5,8,2,9]
+  
+  for(let i = 0; i < 4; i++){
+    if(pos === attackPositions[i]){
+      if(i < 2){
+      currentCardAttack = currentCard.attackNumbers[i];
+      adjecentCardAttack = adjecentCard.attackNumbers[i + 2];
+      }else if(i >= 2){
+        currentCardAttack = currentCard.attackNumbers[i];
+        adjecentCardAttack = adjecentCard.attackNumbers[i - 2];
+      }
+    }
+  }
+
+}
+
+// check board if current card gets flipped or flip adjecent cards on board
+function boardCheck(currentCardOnBoard){
+  const boardId = currentCardOnBoard.id; //integer 0 thru 8
+  const possibleCombinations = {
+    0: [1, "right", 3, "bottom"],
+    1: [0, "left", 2, "right", 4, "bottom"],
+    2: [1, "left", 5, "bottom"],
+    3: [0, "top", 4, "right", 6, "bottom"],
+    4: [1, "top", 3, "left", 5, "right", 7, "bottom"],
+    5: [2, "top", 4, "left", 8, "bottom"],
+    6: [3, "top", 7, "right"],
+    7: [4, "top", 6, "left", 8, "right"],
+    8: [5, "top", 7, "left"]
+  }
+  
+  for(let i = 0; i < possibleCombinations.boardId.length; i + 2){
+    if(i !== null){
+      const adjecentCardPos = i + 1;
+      //get the card object in position [i] and its attacknumbers
+     // cardsAttack(currentCardOnBoard, adjecentCard, adjecentCardPos)
+    }    
+  }
+
+}
+
 function IsVictory(cells) {
   const positions = [
     [0, 1, 2],
@@ -32,44 +77,52 @@ const TicTacToe = Game({
   name: 'tic-tac-toe',
 
   setup: () => ({
-    p1Deck: Array(5).fill(null),
+    p1Deck: [10,11,12,13,14],
     cells: Array(9).fill(null),
-    p2Deck: Array(5).fill(null),
-    hand: null
+    p2Deck: [20,21,22,23,24],
+    hand: [null]
   }),
 
   moves: {
-    clickBoardCell(G, ctx, id) {
+    clickBoardCell(G,ctx, id) {
       const cells = [...G.cells];
+      let hand = [...G.hand];
 
       if (cells[id] === null) {
-        cells[id] = ctx.currentPlayer;
+        cells[id] = hand[0];
       }
-
-      return { ...G, cells };
+      hand = [null]
+      return { ...G, cells, hand };
     },
 
-    //click on p1deck to choose card and move it to hand.
-
     drawCard(G, ctx, id){
-      let deck = [...G.p1Deck];
+      let deck = [];
+      ctx.currentPlayer === "0" ? deck = [...G.p1Deck] : deck = [...G.p2Deck]
       let hand = [...G.hand];
       
-      hand = deck[id];
-        //turnInvisible(deck[id]); 
-      
+      hand[0] = deck[id];
+        
+      return {...G, hand}
+      //turnInvisible(deck[id]); 
+          
     }
-    
-
-    // click on p2cells to choose card and copy it to holding box.
-
-    //click on cells to put the chosen card inside the cell.
-
-
   },
 
   flow: {
-    movesPerTurn: 1,
+    // phases: [
+    //   {
+    //     name: 'draw phase',
+    //     allowedMoves: ['drawCard'],
+    //     endPhaseIf: G => G.hand !== null
+    //   },
+    //   {
+    //     name: 'play phase',
+    //     allowedMoves: ['clickBoardCell'],
+    //     endTurnIf: G => G.hand === null
+    //   }
+    //  ],
+
+   // movesPerTurn: 2,
 
     endGameIf: (G, ctx) => {
       if (IsVictory(G.cells)) {
