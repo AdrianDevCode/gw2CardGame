@@ -14,7 +14,7 @@ class Board extends React.Component {
   onBoardClick = id => {
     if (this.isActive(id)) {
       this.props.moves.clickBoardCell(id);
-      //this.props.events.endPhase;
+      this.props.events.endTurn();
     }
   };
 
@@ -40,7 +40,7 @@ class Board extends React.Component {
               
              }}
           >
-            {this.props.G.cells[id]}
+            {id}
           </td>
         );
         

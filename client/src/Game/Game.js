@@ -1,6 +1,51 @@
 
 import { Game } from 'boardgame.io/core';
 
+function cardsAttack(currentCard, adjecentCard, adjecentCardPos) {
+  let currentCardAttack = 0;
+  let adjecentCardAttack = 0; 
+  const pos = adjecentCardPos; // ex. "right"
+  const attackPositions = ["top", "right", "bottom", "left"]; // [5,8,2,9]
+  
+  for(let i = 0; i < 4; i++){
+    if(pos === attackPositions[i]){
+      if(i < 2){
+      currentCardAttack = currentCard.attackNumbers[i];
+      adjecentCardAttack = adjecentCard.attackNumbers[i + 2];
+      }else if(i >= 2){
+        currentCardAttack = currentCard.attackNumbers[i];
+        adjecentCardAttack = adjecentCard.attackNumbers[i - 2];
+      }
+    }
+  }
+
+}
+
+// check board if current card gets flipped or flip adjecent cards on board
+function boardCheck(currentCardOnBoard){
+  const boardId = currentCardOnBoard.id; //integer 0 thru 8
+  const possibleCombinations = {
+    0: [1, "right", 3, "bottom"],
+    1: [0, "left", 2, "right", 4, "bottom"],
+    2: [1, "left", 5, "bottom"],
+    3: [0, "top", 4, "right", 6, "bottom"],
+    4: [1, "top", 3, "left", 5, "right", 7, "bottom"],
+    5: [2, "top", 4, "left", 8, "bottom"],
+    6: [3, "top", 7, "right"],
+    7: [4, "top", 6, "left", 8, "right"],
+    8: [5, "top", 7, "left"]
+  }
+  
+  for(let i = 0; i < possibleCombinations.boardId.length; i + 2){
+    if(i !== null){
+      const adjecentCardPos = i + 1;
+      //get the card object in position [i] and its attacknumbers
+     // cardsAttack(currentCardOnBoard, adjecentCard, adjecentCardPos)
+    }    
+  }
+
+}
+
 function IsVictory(cells) {
   const positions = [
     [0, 1, 2],
@@ -46,7 +91,7 @@ const TicTacToe = Game({
       if (cells[id] === null) {
         cells[id] = hand[0];
       }
-      
+      hand = [null]
       return { ...G, cells, hand };
     },
 
@@ -55,9 +100,8 @@ const TicTacToe = Game({
       ctx.currentPlayer === "0" ? deck = [...G.p1Deck] : deck = [...G.p2Deck]
       let hand = [...G.hand];
       
-      hand = [];
-      hand.push(deck[id]);
-        console.log(hand.length)
+      hand[0] = deck[id];
+        
       return {...G, hand}
       //turnInvisible(deck[id]); 
           
@@ -69,16 +113,16 @@ const TicTacToe = Game({
     //   {
     //     name: 'draw phase',
     //     allowedMoves: ['drawCard'],
-    //     endPhaseIf: G => G.hand.length = 1
+    //     endPhaseIf: G => G.hand !== null
     //   },
     //   {
     //     name: 'play phase',
     //     allowedMoves: ['clickBoardCell'],
-    //     endPhaseIf: G => G.hand.length = 0
+    //     endTurnIf: G => G.hand === null
     //   }
-    // ],
+    //  ],
 
-    movesPerTurn: 2,
+   // movesPerTurn: 2,
 
     endGameIf: (G, ctx) => {
       if (IsVictory(G.cells)) {

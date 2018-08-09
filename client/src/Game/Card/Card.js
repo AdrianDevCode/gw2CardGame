@@ -1,37 +1,48 @@
 import React, {Component} from 'react';
-import axios from "axios";
+import Draggable from 'react-draggable';
 import './Card.css';
 
 export default class Card extends Component {
-    constructor() {
-        super()
-        this.state ={ card: null}
-    }
-
-    generateImageNumber() {
-        let imgNumber = Math.floor(Math.random() * 61) + 1;
-        return imgNumber;
-    }
-    componentWillMount() {   
-        axios.get("https://api.guildwars2.com/v2/pets/" + this.generateImageNumber())
-        .then(data => {
-            this.setState({
-                card: data.data.icon
-            })
-        })   
-    }
+    
     
     render() {
-        return(
-            <div className="card">
-                <div className="cardImage" style={{backgroundImage: `url(${this.state.card})`}}>
-                <div className="numbers">
-                    <div>1</div>
-                    <div>2 3</div>
-                    <div>4</div>
+        const cardsJSX = this.props.cards.map((card) => {
+            return(
+                <Draggable
+        handle=".handle"
+        position={null}
+        
+        onStart={this.handleStart}
+        onDrag={this.handleDrag}
+        onStop={this.handleStop}>
+
+                <div className="handle card" key={card.id}>
+                   <div className="border">
+                    <div className="cardImage" style={{backgroundImage: `url(${card.petIcon})`}}>
+                        <div className="numbers">
+                            <div>{card.attackNumbers[0]}</div>
+                            <div>{card.attackNumbers[1]} {card.attackNumbers[2]}</div>
+                            <div>{card.attackNumbers[3]}</div>
+                        </div>
+                        
+                    </div>
+                    <div className="frame-header">
+                    <h4 className="name">{card.petName}</h4>
+                    </div>
                 </div>
+                <div className="frame-text-box">
+                <p className="description ftb-inner-margin">{card.petDescription}</p>
                 </div>
             </div>
+            </Draggable>
+            )
+        }) 
+        return(
+        
+               <div className="cards">
+               {cardsJSX}
+               </div>
+               
         
         )
     }
