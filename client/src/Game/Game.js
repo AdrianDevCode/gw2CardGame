@@ -1,29 +1,38 @@
 
 import { Game } from 'boardgame.io/core';
 
-function cardsAttack(currentCard, adjecentCard, adjecentCardPos) {
+function cardsAttack(currentCard, adjacentCard, adjacentCardPos) {
   let currentCardAttack = 0;
-  let adjecentCardAttack = 0; 
-  const pos = adjecentCardPos; // ex. "right"
+  let adjacentCardAttack = 0; 
+  const pos = adjacentCardPos; // ex. "right"
   const attackPositions = ["top", "right", "bottom", "left"]; // [5,8,2,9]
   
   for(let i = 0; i < 4; i++){
     if(pos === attackPositions[i]){
       if(i < 2){
-      currentCardAttack = currentCard.attackNumbers[i];
-      adjecentCardAttack = adjecentCard.attackNumbers[i + 2];
+        currentCardAttack = currentCard.attackNumbers[i];
+        adjacentCardAttack = adjacentCard.attackNumbers[i + 2];
       }else if(i >= 2){
         currentCardAttack = currentCard.attackNumbers[i];
-        adjecentCardAttack = adjecentCard.attackNumbers[i - 2];
+        adjacentCardAttack = adjacentCard.attackNumbers[i - 2];
       }
     }
   }
-
+  if(currentCardAttack > adjacentCardAttack){
+    return true;
+  }else return false;
 }
 
 // check board if current card gets flipped or flip adjecent cards on board
-function boardCheck(currentCardOnBoard){
-  const boardId = currentCardOnBoard.id; //integer 0 thru 8
+function boardCheck(G, ctx,currentCardOnBoard){
+  // check if there are any null boxes left. if there is none, use isVictory() and end game
+    const board = G.cells.find(cell => {return cell === null});
+  if(board === undefined){
+    //isVictory()
+    // gameEnd()
+  }
+
+  let boardId = currentCardOnBoard.id; //integer 0 thru 8
   const possibleCombinations = {
     0: [1, "right", 3, "bottom"],
     1: [0, "left", 2, "right", 4, "bottom"],
@@ -38,10 +47,16 @@ function boardCheck(currentCardOnBoard){
   
   for(let i = 0; i < possibleCombinations.boardId.length; i + 2){
     if(i !== null){
-      const adjecentCardPos = i + 1;
-      //get the card object in position [i] and its attacknumbers
-     // cardsAttack(currentCardOnBoard, adjecentCard, adjecentCardPos)
-    }    
+      const adjacentCardPos = i + 1;
+      let adjacentCard = 2; //get the card object in position [i] and its attacknumbers
+
+      let result = cardsAttack(currentCardOnBoard, adjacentCard, adjacentCardPos);
+      if(result === true){
+        // change color of adjacent card to currentplayer's color card
+      }else if(result === false){
+        // change color of current player's card to to other player's color
+      }
+    }
   }
 
 }
