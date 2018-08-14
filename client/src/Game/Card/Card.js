@@ -4,8 +4,6 @@ import './Card.css';
 
 export default class Card extends Component {
     
-    
-    
     render() {
         
         const cardsJSX = this.props.cards.map((card) => {

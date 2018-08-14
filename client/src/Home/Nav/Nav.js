@@ -1,17 +1,18 @@
 import React, {Component} from 'react';
 import './Nav.css';
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 export default class Nav extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: props.user,
-            redirect: false,
+            logoutRedirect: false,
+            playRedirect: false,
         };
 
         this.logout = this.logout.bind(this);
+        this.play = this.play.bind(this);
     }
 
     logout =  () => {
@@ -21,23 +22,33 @@ export default class Nav extends Component {
         })
         .then(() => {
             this.setState({
-                user: null,
-                redirect: true,
+                logoutRedirect: true,
             })
         })
         .catch((res) => {
             console.log(res);
         });
     }
+    play = () => {
+            this.setState({
+                playRedirect: true,
+            })
+    }
     render(){
-        if(this.state.redirect){
+        if (this.state.playRedirect) {  
+            return <Redirect to={{
+                pathname: '/singleplayer',
+                state: { referrer: this.props}
+              }}/>
+        }
+        if(this.state.logoutRedirect){
            return <Redirect to="/" />
         }
+        
         return(
             <div className='nav-bar'>
-                <Link to='/board'><button  className="play-button"><span>PLAY</span>></button></Link>
-                <button onClick={this.logout} className="logout-button"><span>LOGOUT</span></button>
-                
+                <button onClick= {this.play} className="play-button"><span>PLAY</span></button>
+                <button onClick={this.logout} className="logout-button"><span>LOGOUT</span></button>          
             </div>
         )
     }
