@@ -19,6 +19,10 @@ span {
     font-size: 35px;
     letter-spacing: 1px;
 }
+.login-button span {
+    font-size: 50px;
+    letter-spacing: 1px;
+}
 .login-button {
     display: flex;
     justify-content: center;
@@ -52,6 +56,9 @@ span {
     }
     span {
         font-size: 25px;
+    }
+    .login-button span {
+        font-size: 30px;
     }
     .register-button span {
         font-size: 18px;

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-import SinglePlayer from './Game/Board/singleplayer';
 //import Multiplayer from './Game/Board/multiplayer';
 import HomePage from './Home/HomePage';
 import LoginPage from './Login/LoginPage';
@@ -8,6 +7,7 @@ import Register from "./Login/Register/Register";
 import LoginSelection from "./Login/LoginSelection/LoginSelection";
 import { Route } from 'react-router-dom';
 import axios from 'axios';
+import SinglePlayer from './Game/Board/singleplayer';
 
 export default class App extends Component {
   
@@ -28,11 +28,12 @@ export default class App extends Component {
   
     return (
       <div className="App">
+        <Route path="/singleplayer" component={SinglePlayer} />
         <Route exact path="/" component={LoginPage} />
         <Route path="/loginSelection" component={LoginSelection} />
         <Route path="/register" component={Register} />
         <Route path="/home" component={HomePage} />
-        <Route path="/singleplayer" component={SinglePlayer} /> 
+         
         
       </div>
     );

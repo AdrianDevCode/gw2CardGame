@@ -31,7 +31,7 @@ export default class LoginSelection extends Component {
                 cards: res.data.cards,
                 redirect: true,
             })
-            console.log(res)
+        
         })
         .catch((res) => {
             console.log(res);

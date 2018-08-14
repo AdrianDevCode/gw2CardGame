@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './BoardGame.css';
+import Card from "../Card/Card";
 
 class Board extends React.Component {
   static propTypes = {
@@ -10,7 +11,7 @@ class Board extends React.Component {
     playerID: PropTypes.string,
     isActive: PropTypes.bool
   };
-
+  
   onBoardClick = id => {
     if (this.isActive(id)) {
       this.props.moves.clickBoardCell(id);
@@ -23,6 +24,7 @@ class Board extends React.Component {
   };
 
   render() {
+    console.log(this.props)
     let tbody = [];
     let player1Deck = [];
     let player2Deck = [];
@@ -102,7 +104,7 @@ class Board extends React.Component {
         <tbody>{player2Deck}</tbody>
         </table>
         {player}
-        
+        <Card  cards={this.props.cards}/>
       </div>
     );
   }

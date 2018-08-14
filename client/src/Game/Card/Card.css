@@ -1,4 +1,3 @@
-
 .cards {
     display: flex;
     width: 100%;
@@ -6,47 +5,49 @@
     flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
- }
+}
+
 .card {
     height: 300px;
     width: 200px;
     background: linear-gradient(to bottom right, rgb(2, 133, 72), rgb(238, 241, 242));
     margin: 1em;
-     flex: 0 0 1;
-     border: 10px solid #171314;
-     border-radius: 5%;
-     box-shadow: 11px 13px 36px -8px rgba(0,0,0,0.75);
-     cursor: pointer;
+    flex: 0 0 1;
+    border: 10px solid #171314;
+    border-radius: 5%;
+    box-shadow: 11px 13px 36px -8px rgba(0, 0, 0, 0.75);
+    cursor: pointer;
 }
+
 .numbers {
     width: 60px;
     text-align: center;
     padding-top: 0.2em;
     color: white;
     font-size: 1.6em;
-    
-    text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 3px 0 #b9b9b9, 0 3px 0 #aaa, 0 3px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15);
+    font-family: sans-serif;
+    text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 3px 0 #b9b9b9, 0 3px 0 #aaa, 0 3px 1px rgba(0, 0, 0, .1), 0 0 5px rgba(0, 0, 0, .1), 0 1px 3px rgba(0, 0, 0, .3), 0 3px 5px rgba(0, 0, 0, .2), 0 5px 10px rgba(0, 0, 0, .25), 0 10px 10px rgba(0, 0, 0, .2), 0 20px 20px rgba(0, 0, 0, .15);
 }
 .cardImage {
     background-size: auto 170%;
     height: 170px;
     background-position: center;
-   
 }
+
 h4 {
     text-align: center;
     margin: 0 auto;
     font-size: 2px;
+    font-family: sans-serif;
 }
-p{
+
+p {
     font-size: 60%;
     padding: 0 5px 0 5px;
 }
 
 .frame-header {
-    background: 
-        linear-gradient( 0deg, rgba(201, 216, 201, .3), rgba(201, 216, 209, .3) ), 
-        url(https://image.ibb.co/jKByZn/tile_bg_1.jpg);     
+    background: linear-gradient( 0deg, rgba(201, 216, 201, .3), rgba(201, 216, 209, .3)), url(https://image.ibb.co/jKByZn/tile_bg_1.jpg);
     display: flex;
     margin-left: 5px;
     margin-right: 5px;
@@ -54,16 +55,14 @@ p{
     display: flex;
     justify-content: space-between;
     border-radius: 18px/40px;
-    box-shadow: 
-        0 0 0 2px #171314,
-        0 0 0 5px #26714A,
-        -3px 3px 2px 5px #171314;
+    box-shadow: 0 0 0 2px #171314, 0 0 0 5px #26714A, -3px 3px 2px 5px #171314;
     margin-bottom: 7px;
     border-bottom: 4px solid #a9a9a9;
     border-left: 2px solid #a9a9a9;
     border-top: 1px solid #fff;
     border-right: 1px solid #fff;
 }
+
 .name {
     font-size: 1em;
     text-align: center;
@@ -78,16 +77,15 @@ p{
     background-image: url(https://image.ibb.co/dFcNx7/tile_bg_2.jpg);
     font-size: 17px;
     height: 93px;
-    box-shadow: 
-    0 0 0 5px #26714A,
-    -3px 3px 2px 5px #171314;
+    box-shadow: 0 0 0 5px #26714A, -3px 3px 2px 5px #171314;
 }
-@media only screen and (min-width : 320px) and (max-width : 480px) {
+
+@media only screen and (min-width: 320px) and (max-width: 480px) {
     .card {
         height: 150px;
         width: 100px;
     }
-    .numbers{
+    .numbers {
         width: 30px;
         font-size: 0.8em;
     }
@@ -97,18 +95,18 @@ p{
     h4 {
         font-size: 1px;
     }
-    p{
+    p {
         font-size: 20%;
     }
     .frame-header {
         margin-left: 2.5px;
-    margin-right: 2.5px;
-    padding: 4px 0;
-    margin-bottom: 3px;
-    border-bottom: 2px solid #a9a9a9;
-    border-left: 1px solid #a9a9a9;
-    border-top: 0.5px solid #fff;
-    border-right: 0.5px solid #fff;
+        margin-right: 2.5px;
+        padding: 4px 0;
+        margin-bottom: 3px;
+        border-bottom: 2px solid #a9a9a9;
+        border-left: 1px solid #a9a9a9;
+        border-top: 0.5px solid #fff;
+        border-right: 0.5px solid #fff;
     }
     .name {
         font-size: 0.5em;
@@ -123,8 +121,6 @@ p{
         background-image: url(https://image.ibb.co/dFcNx7/tile_bg_2.jpg);
         font-size: 30px;
         height: 60px;
-        box-shadow: 
-        0 0 0 5px #26714A,
-        -3px 3px 2px 5px #171314;
+        box-shadow: 0 0 0 5px #26714A, -3px 3px 2px 5px #171314;
     }
 }

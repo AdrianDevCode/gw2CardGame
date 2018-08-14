@@ -6,7 +6,6 @@
     background: url("/img/boardBG.jpg") center center no-repeat;
     background-size: cover;
 }
-
 .squaresGrid {
     height: 100vh;
     padding: 0;
@@ -25,7 +24,20 @@
     width: 168px;
     text-align: center;
 }
-
+span {
+    font-size: 1em;
+    font-weight: auto;
+    letter-spacing: 0;
+}
+h4 {
+    font-size: 20px;
+    -webkit-text-fill-color: rgb(0, 0, 0); 
+}
+p {
+    font-size: 12px;
+    -webkit-text-fill-color: rgb(0, 0, 0);
+    font-family: sans-serif;
+}
 td {
     text-align: center;
     font-weight: bold;
@@ -38,13 +50,12 @@ td {
     background: #fff;
     -webkit-text-fill-color: rgb(0, 0, 0);
 }
-
 td.active {
     cursor: pointer;
     background: #eeffe9;
 }
 .debug-ui * {
-    font-size: 20px;
+    font-size: 15px;
     font-family: 'Ruslan Display', cursive;
     font-weight: 100;
     color: black;
@@ -53,4 +64,9 @@ td.active {
 }
 td.active:hover {
     background: #eeffff;
+}
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+    p {
+        font-size: 6px;
+    }
 }

@@ -25,6 +25,7 @@ span {
 .play-button {
     height: 200px;
     width: 200px;
+    font-size: 45px;
     margin-right: 15%;
     background: url("/img/GW2logo.png") center center no-repeat;
     border-radius: 50%;
@@ -43,6 +44,9 @@ span {
         width: 100px;
     }
     span {
+        font-size: 28px;
+    }
+    .play-button {
         font-size: 28px;
     }
     .logout-button span {

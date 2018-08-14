@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { Client } from 'boardgame.io/react';
 import { AI } from 'boardgame.io/ai';
 import TicTacToe from '../Game';
@@ -16,17 +16,18 @@ const App = Client({
         }
       }
       return r;
-    },
-    
+    }
   }),
+  //debug: false,
 
 });
-
-const Singleplayer = () => (
-  <div style={{ padding: 50 }}>
-    
-    <App gameID="single" />
-  </div>
-);
-
-export default Singleplayer;
+export default class Singleplayer extends Component {
+  render(){
+    let playerCards = this.props.location.state.referrer.currentState.cards;
+    return(
+      <div >
+        <App gameID="single" cards={playerCards}/>
+      </div>
+    )
+  }
+}
