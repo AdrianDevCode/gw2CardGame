@@ -9,6 +9,8 @@ export default class Nav extends Component {
         this.state = {
             logoutRedirect: false,
             playRedirect: false,
+            aiCards: null,
+            playerCards: this.props.currentState.cards,
         };
 
         this.logout = this.logout.bind(this);
@@ -30,15 +32,22 @@ export default class Nav extends Component {
         });
     }
     play = () => {
-            this.setState({
+        axios({
+            method: 'get',
+            url: '/cards/getCards'
+          }).then(randomCards => {
+              this.setState({
+                aiCards: randomCards.data,
                 playRedirect: true,
-            })
+              }) 
+          })
     }
     render(){
+        
         if (this.state.playRedirect) {  
             return <Redirect to={{
                 pathname: '/singleplayer',
-                state: { referrer: this.props}
+                state: { referrer: this.state}
               }}/>
         }
         if(this.state.logoutRedirect){

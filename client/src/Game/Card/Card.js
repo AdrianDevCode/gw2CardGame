@@ -10,9 +10,10 @@ export default class Card extends Component {
             let petName = card.petName.replace(/juvenile/i, "");
         
             return(
-                <Draggable handle=".handle" position={null} onStart={this.handleStart} onDrag={this.handleDrag} onStop={this.handleStop} key={card.id}>
+                <div className="card-container" key={card.id}>
+                <Draggable handle=".handle" position={null} onStart={this.handleStart} onDrag={this.handleDrag} onStop={this.handleStop}>
                     <div className="handle card" >
-                        <div className="border">
+                        <div className="cardBorder">
                             <div className="cardImage" style={{backgroundImage: `url(${card.petIcon})`}}>
                                 <div className="numbers">
                                     <div>{card.attackNumbers[0]}</div>
@@ -30,6 +31,7 @@ export default class Card extends Component {
                         </div>
                     </div>
                 </Draggable>
+                </div>
             )
         }) 
         return(

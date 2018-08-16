@@ -1,38 +1,36 @@
-.board {
-    height: '100%';
-    width: "100%";
-    display: 'flex';
-    flex-wrap: 'wrap';
-    background: url("/img/boardBG.jpg") center center no-repeat;
-    background-size: cover;
-}
-.squaresGrid {
-    height: 100vh;
-    padding: 0;
-    margin: 0;
+.border {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-wrap: wrap;
+    align-content: space-between;
+    justify-content: space-between;
+    align-items: stretch;
+    padding: 2vh;
+    
 }
-
-#board {
-    border-collapse: collapse;
+.board {
+    flex-grow: 1;
+    max-width: 600px;
+    align-self: auto;
+    flex-basis: auto;
 }
-
-#winner {
-    margin-top: 25px;
-    width: 168px;
-    text-align: center;
+.deckPlayer1 , .deckPlayer2 {
+    flex: 0 0 0;
+    width: 226px;
+    align-self: auto;
+    flex-basis: auto;
+    
 }
 span {
     font-size: 1em;
     font-weight: auto;
     letter-spacing: 0;
+    -webkit-text-fill-color: #eeffe9;
 }
 h4 {
     font-size: 20px;
-    -webkit-text-fill-color: rgb(0, 0, 0); 
+    -webkit-text-fill-color: rgb(0, 0, 0);
 }
+
 p {
     font-size: 12px;
     -webkit-text-fill-color: rgb(0, 0, 0);
@@ -42,29 +40,32 @@ td {
     text-align: center;
     font-weight: bold;
     font-size: 25px;
+    width: 200px;
+    height: 190px;
     color: #555;
-    width: 50px;
-    height: 50px;
     line-height: 50px;
     border: 3px solid #aaa;
     background: #fff;
     -webkit-text-fill-color: rgb(0, 0, 0);
 }
+
 td.active {
     cursor: pointer;
     background: #eeffe9;
 }
+
 .debug-ui * {
     font-size: 15px;
     font-family: 'Ruslan Display', cursive;
     font-weight: 100;
     color: black;
     -webkit-text-fill-color: rgb(0, 0, 0);
-
 }
+
 td.active:hover {
     background: #eeffff;
 }
+
 @media only screen and (min-width: 320px) and (max-width: 480px) {
     p {
         font-size: 6px;
