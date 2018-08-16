@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import './BoardGame.css';
 import Card from "../Card/Card";
 
+
 class Board extends React.Component {
+  
   static propTypes = {
     G: PropTypes.any.isRequired,
     ctx: PropTypes.any.isRequired,
@@ -11,7 +13,6 @@ class Board extends React.Component {
     playerID: PropTypes.string,
     isActive: PropTypes.bool
   };
-  
   onBoardClick = id => {
     if (this.isActive(id)) {
       this.props.moves.clickBoardCell(id);
@@ -24,7 +25,7 @@ class Board extends React.Component {
   };
 
   render() {
-    console.log(this.props)
+    
     let tbody = [];
     let player1Deck = [];
     let player2Deck = [];
@@ -92,19 +93,19 @@ class Board extends React.Component {
 
 
     return (
-      <div>
-        <table className="player1">
-          <tbody>{player1Deck}</tbody>
+      <div className="border">
+        <div className="deckPlayer2">
+          <Card cards={this.props.aiCards}/>
+        </div>
+       <div className="board">
+        <table className="table">
+          <tbody className="tableBody">{tbody}</tbody>
+        </table>
+       </div>
+        <div className="deckPlayer1">
+          <Card cards={this.props.playerCards}/>
+        </div>
         
-        </table>
-        <table id="board">
-          <tbody>{tbody}</tbody>
-        </table>
-        <table className="player2">
-        <tbody>{player2Deck}</tbody>
-        </table>
-        {player}
-        <Card  cards={this.props.cards}/>
       </div>
     );
   }

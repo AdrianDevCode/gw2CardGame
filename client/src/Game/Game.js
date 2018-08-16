@@ -94,7 +94,7 @@ const TicTacToe = Game({
   setup: () => ({
     p1Deck: [],
     cells: Array(9).fill(null),
-    p2Deck: [20,21,22,23,24],
+    p2Deck: [],
     hand: [null],
   }),
 

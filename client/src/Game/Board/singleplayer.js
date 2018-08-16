@@ -3,6 +3,7 @@ import { Client } from 'boardgame.io/react';
 import { AI } from 'boardgame.io/ai';
 import TicTacToe from '../Game';
 import Board from './BoardGame';
+import axios from 'axios';
 
 const App = Client({
   game: TicTacToe,
@@ -18,15 +19,16 @@ const App = Client({
       return r;
     }
   }),
-  //debug: false,
+  debug: false,
 
 });
 export default class Singleplayer extends Component {
   render(){
-    let playerCards = this.props.location.state.referrer.currentState.cards;
+    let playerCards = this.props.location.state.referrer.playerCards;
+    let aiCards = this.props.location.state.referrer.aiCards;
     return(
-      <div >
-        <App gameID="single" cards={playerCards}/>
+      <div>
+        <App gameID="single" playerCards={playerCards} aiCards={aiCards} />
       </div>
     )
   }

@@ -1,13 +1,17 @@
-.cards {
-    width: 226px;
-    height: 96vh;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    margin: 0% auto;
+html body {
+    background: url('/img/boardBG.jpg') center center no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
 }
-
-.card {
+.home-cards {
+    display: flex;
+    width: 100%;
+    min-height: 60vh;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.home-card {
     height: 300px;
     width: 200px;
     background: linear-gradient(to bottom right, rgb(2, 133, 72), rgb(238, 241, 242));
@@ -17,30 +21,18 @@
     border-radius: 5%;
     box-shadow: 11px 13px 36px -8px rgba(0, 0, 0, 0.75);
     cursor: pointer;
-    margin: 0%;
-    padding: 0%;
 }
 
-.card-container {
-    flex: 1 0 0;
-    overflow-y: hidden;
-}
-
-.card-container:last-child {
-    flex: 0 0 auto;
-}
-
-.numbers {
+.home-numbers {
     width: 60px;
     text-align: center;
     padding-top: 0.2em;
     color: white;
-    font-size: 1.1em;
+    font-size: 1.6em;
     font-family: sans-serif;
-    text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 0 0 #bbb, 0 0 0 #b9b9b9, 0 1px 0 #aaa, 0 1px 1px rgba(0, 0, 0, .1), 0 0 5px rgba(0, 0, 0, .1), 0 1px 3px rgba(0, 0, 0, .3), 0 3px 5px rgba(0, 0, 0, .2), 0 5px 10px rgba(0, 0, 0, .25), 0 10px 10px rgba(0, 0, 0, .2), 0 20px 20px rgba(0, 0, 0, .15);
+    text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 3px 0 #b9b9b9, 0 3px 0 #aaa, 0 3px 1px rgba(0, 0, 0, .1), 0 0 5px rgba(0, 0, 0, .1), 0 1px 3px rgba(0, 0, 0, .3), 0 3px 5px rgba(0, 0, 0, .2), 0 5px 10px rgba(0, 0, 0, .25), 0 10px 10px rgba(0, 0, 0, .2), 0 20px 20px rgba(0, 0, 0, .15);
 }
-
-.cardImage {
+.home-cardImage {
     background-size: auto 170%;
     height: 170px;
     background-position: center;
@@ -58,8 +50,9 @@ p {
     padding: 0 5px 0 5px;
 }
 
-.frame-header {
+.home-frame-header {
     background: linear-gradient( 0deg, rgba(201, 216, 201, .3), rgba(201, 216, 209, .3)), url(https://image.ibb.co/jKByZn/tile_bg_1.jpg);
+    
     margin-right: 2px;
     padding: 8px 0;
     display: flex;
@@ -74,14 +67,14 @@ p {
     width: 100%;
 }
 
-.name {
+.home-name {
     font-size: 1em;
     text-align: center;
     font-weight: 600;
     height: 3px;
 }
 
-.frame-text-box {
+.home-frame-text-box {
     margin: 0 5px;
     background: #d3ded6;
     background-image: url(https://image.ibb.co/dFcNx7/tile_bg_2.jpg);
@@ -91,15 +84,15 @@ p {
 }
 
 @media only screen and (min-width: 320px) and (max-width: 480px) {
-    .card {
+    .home-card {
         height: 150px;
         width: 100px;
     }
-    .numbers {
+    .home-numbers {
         width: 30px;
         font-size: 0.8em;
     }
-    .cardImage {
+    .home-cardImage {
         height: 70px;
     }
     h4 {
@@ -108,7 +101,7 @@ p {
     p {
         font-size: 20%;
     }
-    .frame-header {
+    .home-frame-header {
         margin-left: 2.5px;
         margin-right: 2.5px;
         padding: 4px 0;
@@ -118,13 +111,14 @@ p {
         border-top: 0.5px solid #fff;
         border-right: 0.5px solid #fff;
     }
-    .name {
+    .home-name {
         font-size: 0.5em;
         text-align: center;
         font-weight: 600;
         height: 1.5px;
+        
     }
-    .frame-text-box {
+    .home-frame-text-box {
         margin: 0 5px;
         background: #d3ded6;
         background-image: url(https://image.ibb.co/dFcNx7/tile_bg_2.jpg);
