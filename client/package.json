@@ -5,10 +5,13 @@
   "dependencies": {
     "axios": "^0.18.0",
     "boardgame.io": "^0.24.0",
+    "parse5": "^5.1.0",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
+    "react-attr-converter": "^0.3.1",
     "react-dom": "^16.4.1",
     "react-draggable": "^3.0.5",
+    "react-render-html": "^0.6.0",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4"
   },

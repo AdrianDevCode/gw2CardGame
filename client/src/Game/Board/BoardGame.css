@@ -4,7 +4,7 @@
     align-content: space-between;
     justify-content: space-between;
     align-items: stretch;
-    padding: 2vh;
+    padding: 1vh;
     
 }
 .board {
@@ -12,6 +12,19 @@
     max-width: 600px;
     align-self: auto;
     flex-basis: auto;
+}
+.board-card {
+    height: 200px;
+    width: 200px;
+    background: linear-gradient(to bottom right, rgb(2, 133, 72), rgb(238, 241, 242));
+    margin: 1em;
+    flex: 0 0 1;
+    border: 10px solid #171314;
+    border-radius: 5%;
+    box-shadow: 11px 13px 36px -8px rgba(0, 0, 0, 0.75);
+    cursor: pointer;
+    margin: 0%;
+    padding: 0%;
 }
 .deckPlayer1 , .deckPlayer2 {
     flex: 0 0 0;
@@ -37,16 +50,10 @@ p {
     font-family: sans-serif;
 }
 td {
-    text-align: center;
-    font-weight: bold;
-    font-size: 25px;
     width: 200px;
-    height: 190px;
-    color: #555;
-    line-height: 50px;
-    border: 3px solid #aaa;
-    background: #fff;
-    -webkit-text-fill-color: rgb(0, 0, 0);
+    height: 200px;
+    margin: 0%;
+    padding: 0%;
 }
 
 td.active {

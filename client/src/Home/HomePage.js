@@ -14,7 +14,7 @@ export default class HomePage extends Component {
         
             return(
                 
-                <Draggable handle=".handle" position={null} onStart={this.handleStart} onDrag={this.handleDrag} onStop={this.handleStop}>
+                <Draggable handle=".handle" position={null} onStart={this.handleStart} onDrag={this.handleDrag} onStop={this.handleStop} key={card.id}>
                     <div className="handle home-card" >
                         <div className="home-cardBorder">
                             <div className="home-cardImage" style={{backgroundImage: `url(${card.petIcon})`}}>

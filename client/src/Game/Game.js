@@ -23,7 +23,7 @@ function cardsAttack(currentCard, adjacentCard, adjacentCardPos) {
   }else return false;
 }
 
-// check board if current card gets flipped or flip adjecent cards on board
+// check board if current card gets flipped or flip adjacent cards on board
 function boardCheck(G, ctx,currentCardOnBoard){
   // check if there are any null boxes left. if there is none, use isVictory() and end game
     const board = G.cells.find(cell => {return cell === null});
@@ -104,7 +104,7 @@ const TicTacToe = Game({
       let hand = [...G.hand];
 
       if (cells[id] === null) {
-        cells[id] = hand[0];
+        cells[id] = hand[0].id;
       }
       hand = [null]
       return { ...G, cells, hand };
@@ -112,14 +112,13 @@ const TicTacToe = Game({
 
     drawCard(G, ctx, id){
       let deck = [];
-      ctx.currentPlayer === "0" ? deck = [...G.p1Deck] : deck = [...G.p2Deck]
-      let hand = [...G.hand];
-      
-      hand[0] = deck[id];
-        
-      return {...G, hand}
-      //turnInvisible(deck[id]); 
-          
+      ctx.currentPlayer === "0" ? deck = [...G.p1Deck] : deck = [...G.p2Deck];
+      let hand = deck.filter(card => {
+        if(card.id === id){
+          return card;
+        }
+      })
+      return {...G, hand} 
     }
   },
 
