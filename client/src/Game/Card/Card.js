@@ -3,12 +3,11 @@ import Draggable from 'react-draggable';
 import './Card.css';
 
 export default class Card extends Component {
-    
     render() {
         
         const cardsJSX = this.props.cards.map((card) => {
+            
             let petName = card.petName.replace(/juvenile/i, "");
-        
             return(
                 <div className="card-container" key={card.id}>
                 <Draggable handle=".handle" position={null} onStart={this.handleStart} onDrag={this.handleDrag} onStop={this.handleStop}>

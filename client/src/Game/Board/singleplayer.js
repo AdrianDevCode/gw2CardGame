@@ -3,7 +3,6 @@ import { Client } from 'boardgame.io/react';
 import { AI } from 'boardgame.io/ai';
 import TicTacToe from '../Game';
 import Board from './BoardGame';
-import axios from 'axios';
 
 const App = Client({
   game: TicTacToe,
