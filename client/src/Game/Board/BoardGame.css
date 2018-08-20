@@ -9,9 +9,14 @@
 }
 .board {
     flex-grow: 1;
-    max-width: 600px;
+    max-width: 668px;
+    max-height: 660px;
     align-self: auto;
     flex-basis: auto;
+}
+.table {
+    max-width: 668px;
+    max-height: 660px;
 }
 .board-card {
     height: 200px;
@@ -50,8 +55,8 @@ p {
     font-family: sans-serif;
 }
 td {
-    width: 200px;
-    height: 200px;
+    width: 220px;
+    height: 220px;
     margin: 0%;
     padding: 0%;
 }
@@ -59,6 +64,13 @@ td {
 td.active {
     cursor: pointer;
     background: #eeffe9;
+}
+.card-container {
+    display: none;
+}
+.card-container.active {
+    display: block;
+    
 }
 
 .debug-ui * {
