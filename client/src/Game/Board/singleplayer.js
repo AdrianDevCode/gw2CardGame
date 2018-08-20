@@ -18,10 +18,11 @@ const App = Client({
       return r;
     }
   }),
-  debug: false,
+  //debug: false,
 
 });
 export default class Singleplayer extends Component {
+  
   render(){
     let playerCards = this.props.location.state.referrer.playerCards;
     let aiCards = this.props.location.state.referrer.aiCards;
