@@ -165,7 +165,7 @@ const TicTacToe = Game({
       G.allDecks.forEach(card => {
         card.color === "blue" ? blue++ : red++;
       })
-      blue > red ? winner = G.p1Deck[0].userId : winner = 1;
+      blue > red ? winner = G.p1Deck[0].userId : winner = "ai";
       return { winner: winner};
     }
     if (G.cells.filter(c => c === null).length == 0) {
