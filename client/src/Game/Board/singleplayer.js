@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { Client } from 'boardgame.io/react';
 import TicTacToe from '../Game';
 import Board from './BoardGame';
+import { AI } from 'boardgame.io/ai';
 
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
@@ -24,6 +25,17 @@ function shuffle(array) {
 const App = Client({
   game: TicTacToe,
   board: Board,
+  ai: AI({
+    enumerate: (G, ctx) => {
+      let moves = [];
+      for (let i = 0; i < 9; i++) {
+        if (G.cells[i] === null) {
+          moves.push({ move: 'clickCell', args: [i] });
+        }
+      }
+      return moves;
+    },
+  }),
   debug: false,
   
  // multiplayer: {server: 'localhost:8000'},

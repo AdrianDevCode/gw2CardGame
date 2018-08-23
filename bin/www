@@ -3,6 +3,9 @@
 /**
  * Module dependencies.
  */
+const Server = require('../client/node_modules/boardgame.io/server').Server;
+const TicTacToe = require('../client/src/Game/Game');
+const GameServer = Server({ games: [TicTacToe] });
 
 var app = require('../app');
 var debug = require('debug')('dc-react-node-app:server');
@@ -15,7 +18,9 @@ var models = require('../models');
 
 var port = normalizePort(process.env.PORT || '3001');
 app.set('port', port);
-
+GameServer.run(8000, () => {
+  console.log(`Serving at: http://localhost:8000/`);
+});
 /**
  * Create HTTP server.
  */
