@@ -43,7 +43,7 @@ export default class Nav extends Component {
           })
     }
     render(){
-        
+        console.log(this.state)
         if (this.state.playRedirect) {  
             return <Redirect to={{
                 pathname: '/multi',

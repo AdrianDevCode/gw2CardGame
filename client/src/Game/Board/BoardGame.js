@@ -4,12 +4,14 @@ import '../Card/Card.css';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
+
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Component BOARD GAME ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class Board extends React.Component { 
   constructor() {
     super();
     this.state= {
       allCards: null,
+      originalP1Cards: null,
       p1Cards: null,
       p2Cards: null,
       cards: null,
@@ -41,11 +43,12 @@ componentWillMount(){
   const playerCards = this.sortCards(this.props.playerCards)
   this.props.G.p2Deck = aiCards;
   this.props.G.p1Deck = playerCards;
-  this.props.G.allDecks = this.props.playerCards.concat(this.props.aiCards)
+  this.props.G.allDecks = this.props.playerCards.concat(this.props.aiCards);
   this.setState({
     allCards: this.props.playerCards.concat(this.props.aiCards),
     p1Cards: this.props.playerCards,
-    p2Cards: this.props.aiCards
+    p2Cards: this.props.aiCards,
+    originalP1Cards: this.props.allPlayerCards
   })
 }
  
@@ -197,14 +200,14 @@ componentWillMount(){
       let card = this.props.G.cardWon[0];
       let petName = card.petName.replace(/juvenile/i, "");
       let colorCard = "linear-gradient(to bottom right, rgb(2, 133, 72), rgb(238, 241, 242))";
-      if(winner === false){
+      if(winner === 1){
         Swal({
           title: "Sorry, You lost!",
           confirmButtonText: "Back to Home"
         }).then(result => {
           if(result.value){
             this.setState({
-              cards: this.props.playerCards,
+              cards: this.state.originalP1Cards,
               redirect: true,
             })
           }
@@ -242,7 +245,7 @@ componentWillMount(){
         }
       }).then(() => {
         this.setState({
-          cards: this.props.playerCards.concat(this.props.G.cardWon),
+          cards: this.state.originalP1Cards.concat(this.props.G.cardWon),
           redirect: true,
         })
       })
