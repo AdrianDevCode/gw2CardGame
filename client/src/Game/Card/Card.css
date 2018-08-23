@@ -57,7 +57,9 @@ p {
     font-size: 60%;
     padding: 0 5px 0 5px;
 }
-
+.card-container.centerWonCard {
+    display: inline-block;
+}
 .frame-header {
     background: linear-gradient( 0deg, rgba(201, 216, 201, .3), rgba(201, 216, 209, .3)), url(https://image.ibb.co/jKByZn/tile_bg_1.jpg);
     margin-right: 2px;

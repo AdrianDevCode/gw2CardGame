@@ -2,48 +2,55 @@
 import { Game } from 'boardgame.io/core';
 
 function cardsAttack(currentCardAttack, adjacentCardsAttack, adjacentCardsPos, currentCardPos) {
-
+  
   let currentPlayerAttack  = null;
   let adjacentPlayerAttack = null;
   const attackPositions   = ["top", "left", "right", "bottom"]; // [5,8,2,9]
   let outcome = [];
-  
   adjacentCardsAttack.forEach((card, i) => {
+    
     attackPositions.forEach((position, index) => {  
       if(position === adjacentCardsPos[i]){
         currentPlayerAttack = currentCardAttack.attacks[index]//current player  card attack digit
-        //console.log(currentPlayerAttack);
+        
       }else if(position === currentCardPos[i]){
-        adjacentPlayerAttack = card.attacks[index] // adjacent player card attack digit
-        //console.log(adjacentPlayerAttack)
-      }
-      
+        adjacentPlayerAttack = card.attackNumbers[index] // adjacent player card attack digit
+        
+      }  
     })
-    if(currentPlayerAttack > adjacentPlayerAttack){
-      console.log("flip" + card.id);
+    if(currentCardAttack.color === card.color){
+      outcome.push(false);
+     // console.log("same colors!")
+    }else if(currentPlayerAttack > adjacentPlayerAttack){
+      outcome.push(card.id);
+     // console.log("flip" + card.id);
     }else if(currentPlayerAttack < adjacentPlayerAttack){
-      console.log("flip" + currentCardAttack.id)
+      outcome.push(currentCardAttack.id);
+     // console.log("flip" + currentCardAttack.id)
     }else {
-      console.log("dont do anything")
+      outcome.push(false);
+      //console.log("dont do anything")
     }
   })
+  return outcome;
 }
-
+function IsVictory(cells){
+  // check if there are any null boxes left
+  let board = cells.find(cell => {return cell === null});
+  if(board === undefined){
+    return true; 
+  }
+}
 // check board if current card gets flipped or flip adjacent cards on board
-function boardCheck(allCards, cells, currentCardOnBoard, cardAttack){
-  // check if there are any null boxes left. if there is none, use isVictory() and end game
-  //   const board = G.cells.find(cell => {return cell === null});
-  // if(board === undefined){
-  //   //isVictory()
-  //   // gameEnd()
-  // }
-  //allCards.sort((a, b) => a - b);
+function boardCheck(G, allCards, cells, currentCardOnBoard, cardAttack){
+
+  let flipCards = null;
   const boardId = currentCardOnBoard; //integer 0 thru 8
   const boardCells = cells;
   const currentCardAttack = cardAttack;
   let adjacentCardsAttack = [];
   let adjacentCardsIDs = []; // ids of adjacent cards
-  let adjacentCardsPos = []; // positions of above adjacent cards
+  let adjacentCardsPos = []; // positions of adjacent cards
   let currentCardPos = [];
   const possibleCombinations = [
     {otherCardsIDs: [1, 3], pos1: ["right", "bottom"], pos2: ["left", "top"] },
@@ -57,22 +64,19 @@ function boardCheck(allCards, cells, currentCardOnBoard, cardAttack){
     {otherCardsIDs: [5, 7], pos1: ["top", "left"], pos2: ["bottom", "right"]}
   ]
     // get adjacent cards id's and positions
-    possibleCombinations.map(adjacentCards => {
-      
-      if(adjacentCards === possibleCombinations[boardId]) {
+  possibleCombinations.map(adjacentCards => { 
+    if(adjacentCards === possibleCombinations[boardId]) {
+        for(let i = 0; i < adjacentCards.otherCardsIDs.length; i++ ){
+          let id = adjacentCards.otherCardsIDs[i];
 
-          for(let i = 0; i < adjacentCards.otherCardsIDs.length; i++ ){
-            let id = adjacentCards.otherCardsIDs[i];
-
-            if(boardCells[id] !== null) {  
-              adjacentCardsIDs.push(boardCells[id]);
-              adjacentCardsPos.push(adjacentCards.pos1[i]);
-              currentCardPos.push(adjacentCards.pos2[i]);
-            }
+          if(boardCells[id] !== null) {  
+            adjacentCardsIDs.push(boardCells[id]);
+            adjacentCardsPos.push(adjacentCards.pos1[i]);
+            currentCardPos.push(adjacentCards.pos2[i]);
           }
+        }
       }
     }
-    
   )
 // get adjacent cards attack numbers
   adjacentCardsIDs.forEach(id => {
@@ -83,51 +87,8 @@ function boardCheck(allCards, cells, currentCardOnBoard, cardAttack){
     })
   })
   
-  cardsAttack(currentCardAttack, adjacentCardsAttack, adjacentCardsPos, currentCardPos);
-
-   //cardsAttack(currentCardAttack,adjacentCardsIDs, adjacentCardsPos)
-
-  // for(let i = 0; i < possibleCombinations[boardId].length; i + 2){  
-  //   if(i !== null){
-  //     const adjacentCardPos = i + 1;
-  //     let adjacentCard = 2; //get the card object in position [i] and its attacknumbers
-
-  //     let result = cardsAttack(currentCardOnBoard, adjacentCard, adjacentCardPos);
-  //     if(result === true){
-  //       // change color of adjacent card to currentplayer's color card
-  //     }else if(result === false){
-  //       // change color of current player's card to to other player's color
-  //     }
-  //   }
-  // }
-
-}
-
-function IsVictory(cells) {
-  const positions = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
-  ];
-
-  for (let pos of positions) {
-    const symbol = cells[pos[0]];
-    let winner = symbol;
-    for (let i of pos) {
-      if (cells[i] !== symbol) {
-        winner = null;
-        break;
-      }
-    }
-    if (winner !== null) return true;
-  }
-
-  return false;
+  return flipCards =(cardsAttack(currentCardAttack, adjacentCardsAttack, adjacentCardsPos, currentCardPos));
+  
 }
 
 const TicTacToe = Game({
@@ -140,21 +101,32 @@ const TicTacToe = Game({
     p2Deck: Array(5).fill(null),
     allDecks: Array(10).fill(null),
     hand: [null],
+    cardWon: [null]
   }),
 
   moves: {
     clickBoardCell(G,ctx, id) {
       const cells = [...G.cells];
+      let outcome = null;
       let hand = [...G.hand];
-      let allDecks = [...G.allDecks];
-      
+      const allDecks = [...G.allDecks]; 
       if (cells[id] === null) {
         cells[id] = hand[0].id;
-        
       }
-      boardCheck(allDecks, cells, id, hand[0]);
-      hand = [null]
-      return { ...G, cells, hand };
+      outcome = (boardCheck(G, allDecks, cells, id, hand[0]));
+      hand = [null];
+      outcome.forEach(cardToFlip => {
+        
+        if(cardToFlip){
+          allDecks.forEach(card => {  
+            if(cardToFlip === card.id){
+              card.color === "red" ? card.color = "blue" : card.color = "red";
+            }
+          })
+        }
+      })
+      
+      return { ...G, cells, hand, allDecks };
     },
 
     drawCard(G, ctx, id){
@@ -185,14 +157,21 @@ const TicTacToe = Game({
 
    // movesPerTurn: 2,
 
-    endGameIf: (G, ctx) => {
-      if (IsVictory(G.cells)) {
-        return { winner: ctx.currentPlayer };
-      }
-      if (G.cells.filter(c => c === null).length === 0) {
-        return { draw: true };
-      }
-    },
+   endGameIf: (G, ctx) => {
+    if (IsVictory(G.cells)) { //IsVictory(G.cells)
+      let winner = null;
+      let blue = 0;
+      let red = -1;
+      G.allDecks.forEach(card => {
+        card.color === "blue" ? blue++ : red++;
+      })
+      blue > red ? winner = G.p1Deck[0].userId : false;
+      return { winner: winner};
+    }
+    if (G.cells.filter(c => c === null).length == 0) {
+      return { draw: true };
+    }
+  },
   },
 });
 

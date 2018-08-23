@@ -46,7 +46,7 @@ export default class Nav extends Component {
         
         if (this.state.playRedirect) {  
             return <Redirect to={{
-                pathname: '/singleplayer',
+                pathname: '/multi',
                 state: { referrer: this.state}
               }}/>
         }
