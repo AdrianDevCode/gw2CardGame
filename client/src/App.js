@@ -28,7 +28,7 @@ export default class App extends Component {
   
     return (
       <div className="App">
-        <Route path="/singleplayer" component={SinglePlayer} />
+        <Route path="/multi" component={SinglePlayer} />
         <Route exact path="/" component={LoginPage} />
         <Route path="/loginSelection" component={LoginSelection} />
         <Route path="/register" component={Register} />
