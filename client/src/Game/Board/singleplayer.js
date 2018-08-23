@@ -50,14 +50,14 @@ export default class Singleplayer extends Component {
       selectedPlayerCards.push(playerCards[i]);
     }
     let aiCards = this.props.location.state.referrer.aiCards;
-    for(let i = 0; i < playerCards.length; i++){
+    for(let i = 0; i < selectedPlayerCards.length; i++){
       playerCards[i].color = "blue";
       aiCards[i].color = "red"; 
     }
     
     return(
       <div>
-        <App  playerCards={selectedPlayerCards} aiCards={aiCards} />
+        <App  playerCards={selectedPlayerCards} aiCards={aiCards} allPlayerCards={playerCards} />
        
       </div>
     )
