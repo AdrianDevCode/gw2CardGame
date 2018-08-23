@@ -24,7 +24,19 @@ router.post('/cards', function(req, res, next) {
      })
      
   });
+router.post('/addCardToUser', function(req, res,next) {
+    let {card, UserId} = req.body;
+    models.UserCards.create({
+        id: card.id,
+        petID: card.petID,
+        petName: card.petName,
+        petDescription: card.petDescription,
+        petIcon: card.petIcon,
+        attackNumbers: card.attackNumbers.toString(),
+        UserId: UserId
 
+    })
+});
 router.get("/getCards", function(req, res, next){ 
     // add random attack numbers to each card.
     models.AllCards.findAll({raw: true, order: Sequelize.literal('random()'), limit: 5  }).then(card => {
