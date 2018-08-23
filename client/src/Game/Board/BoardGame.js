@@ -200,7 +200,7 @@ componentWillMount(){
       let card = this.props.G.cardWon[0];
       let petName = card.petName.replace(/juvenile/i, "");
       let colorCard = "linear-gradient(to bottom right, rgb(2, 133, 72), rgb(238, 241, 242))";
-      if(winner === 1){
+      if(winner === "ai"){
         Swal({
           title: "Sorry, You lost!",
           confirmButtonText: "Back to Home"
