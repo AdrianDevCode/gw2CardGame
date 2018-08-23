@@ -157,14 +157,14 @@ const setupAuth = (app) => {
             }
             let userID = cleanUser.id;
             // find all cards that belong to this user and put them in array
-            models.UserCards.findAll({raw: true, where: {UserId: userID}}).then(card => {
+            models.UserCards.findAll({raw: true, where: {UserId: userID}}).then(cards => {
                 let petCards = []
-                for(let i = 0; i < 5; i++){
+                for(let i = 0; i < cards.length; i++){
                     
-                    card[i].attackNumbers = card[i].attackNumbers.split(",")
-                    petCards.push(card[i]);
+                    cards[i].attackNumbers = cards[i].attackNumbers.split(",")
+                    petCards.push(cards[i]);
                 }
-                console.log(petCards)
+                
                 res.json({ username: cleanUser, cards: petCards });
             })   
         }
