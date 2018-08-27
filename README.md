@@ -5,7 +5,7 @@ About:
   The Player and AI will draw 5 cards randomly from the deck and take turns placing cards on the play field. Each card has 
   If the player wins, he/she gets to choose one of AI's card to add to their collection. Try to collect all cards!
 
-Work in progress.
+Work in progress. Alpha version. Demo >>> https://guild-wars-2-card-game.herokuapp.com/
 
 Stack used:
   React //
