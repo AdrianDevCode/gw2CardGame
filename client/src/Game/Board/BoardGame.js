@@ -55,7 +55,7 @@ componentWillMount(){
   onBoardClick = id => {
     if (this.isActive(id)) {
       this.props.moves.clickBoardCell(id);
-      this.props.events.endTurn();
+      //this.props.events.endTurn();
     }
   };
   playerDrawCard = id => {
@@ -87,10 +87,7 @@ componentWillMount(){
         })
       }
     })
-   
   }
-
-  // document.querySelectorAll(`[data-key="${id}"]`)[0].className = "card-container"
     this.props.moves.drawCard(id);
 }
   
@@ -258,19 +255,6 @@ componentWillMount(){
           state: { referrer: this.state }
         }}/>
   }
-  // let disconnected = null;
-  //   if (this.props.isMultiplayer && !this.props.isConnected) {
-  //     disconnected = <div>Disconnected!</div>;
-  //   }
-
-  let player = null;
-    if (this.props.playerID) {
-      console.log("player name is " + this.props.playerID);
-    }
-
-    // if (this.props.isPreview) {
-    //   disconnected = player = null;
-    // }
     return (
       <div className="border">
         <div className="deckPlayer2">

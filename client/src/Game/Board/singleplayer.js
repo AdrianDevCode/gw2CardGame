@@ -28,18 +28,19 @@ const App = Client({
   ai: AI({
     enumerate: (G, ctx) => {
       let moves = [];
+      G.p2Deck.forEach((card) => {
+        moves.push({ move: 'drawCard', args: [card.id] });
+      });
       for (let i = 0; i < 9; i++) {
         if (G.cells[i] === null) {
-          moves.push({ move: 'clickCell', args: [i] });
+          moves.push({ move: 'clickBoardCell', args: [i] });
         }
-      }
+      };
+     
       return moves;
     },
   }),
-  debug: false,
-  
- // multiplayer: {server: 'localhost:8000'},
-
+  //debug: false,
 });
 export default class Singleplayer extends Component {
   

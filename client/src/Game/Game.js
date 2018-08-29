@@ -106,17 +106,16 @@ const TicTacToe = Game({
 
   moves: {
     clickBoardCell(G,ctx, id) {
-      const cells = [...G.cells];
+      let cells = [...G.cells];
       let outcome = null;
       let hand = [...G.hand];
-      const allDecks = [...G.allDecks]; 
+      let allDecks = [...G.allDecks]; 
       if (cells[id] === null) {
+        
         cells[id] = hand[0].id;
       }
       outcome = (boardCheck(G, allDecks, cells, id, hand[0]));
-      hand = [null];
       outcome.forEach(cardToFlip => {
-        
         if(cardToFlip){
           allDecks.forEach(card => {  
             if(cardToFlip === card.id){
@@ -125,47 +124,66 @@ const TicTacToe = Game({
           })
         }
       })
-      
+      hand = [null];
       return { ...G, cells, hand, allDecks };
     },
 
     drawCard(G, ctx, id){
-      let deck = [];
-      ctx.currentPlayer === "0" ? deck = [...G.p1Deck] : deck = [...G.p2Deck];
-      let hand = deck.filter(card => {
-        if(card.id === id){
-          return card;
-        }
-      })
-      return {...G, hand} 
+      let p1Deck = [...G.p1Deck];
+      let p2Deck = [...G.p2Deck];
+      let hand = [...G.hand];
+      
+      let newHandAndDeck = [];
+      const getCard = (deck) => {
+        let handAndDeck = [];
+        handAndDeck.push(deck.filter((card, index )=> {
+          if(card.id === id){
+            deck.splice(index, 1);
+            return card;
+          }
+        }));
+        handAndDeck.push(deck);
+        return handAndDeck;
+      }
+      ctx.currentPlayer === "0" ? (
+        newHandAndDeck = getCard(p1Deck),
+        hand = newHandAndDeck[0],
+        p1Deck = newHandAndDeck[1] 
+      ) : (
+        newHandAndDeck = getCard(p2Deck),
+        hand = newHandAndDeck[0],
+        p2Deck = newHandAndDeck[1]
+      );
+      console.log(hand, p2Deck);
+      return {...G, hand, p1Deck, p2Deck} 
     }
   },
 
   flow: {
-    // phases: [
-    //   {
-    //     name: 'draw phase',
-    //     allowedMoves: ['drawCard'],
-    //     endPhaseIf: G => G.hand !== null
-    //   },
-    //   {
-    //     name: 'play phase',
-    //     allowedMoves: ['clickBoardCell'],
-    //     endTurnIf: G => G.hand === null
-    //   }
-    //  ],
+    phases: [
+      {
+        name: 'draw phase',
+        allowedMoves: ['drawCard'],
+        endPhaseIf: G => G.hand[0] !== null
+      },
+      {
+        name: 'play phase',
+        allowedMoves: ['clickBoardCell'],
+        endPhaseIf: G => G.hand[0] === null
+      }
+     ],
 
     movesPerTurn: 2,
 
    endGameIf: (G, ctx) => {
-    if (IsVictory(G.cells)) { //IsVictory(G.cells)
+    if (IsVictory(G.cells)) {
       let winner = null;
       let blue = 0;
       let red = -1;
       G.allDecks.forEach(card => {
         card.color === "blue" ? blue++ : red++;
       })
-      blue > red ? winner = G.p1Deck[0].userId : winner = "ai";
+      blue > red ? winner = "player" : winner = "ai";
       return { winner: winner};
     }
     if (G.cells.filter(c => c === null).length == 0) {
