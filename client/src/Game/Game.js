@@ -124,7 +124,7 @@ const TicTacToe = Game({
           })
         }
       })
-      hand = [null];
+      hand[0] = null;
       return { ...G, cells, hand, allDecks };
     },
 
@@ -154,7 +154,7 @@ const TicTacToe = Game({
         hand = newHandAndDeck[0],
         p2Deck = newHandAndDeck[1]
       );
-      console.log(hand, p2Deck);
+      
       return {...G, hand, p1Deck, p2Deck} 
     }
   },
@@ -186,7 +186,7 @@ const TicTacToe = Game({
       blue > red ? winner = "player" : winner = "ai";
       return { winner: winner};
     }
-    if (G.cells.filter(c => c === null).length == 0) {
+    if (G.cells.filter(c => c === null).length === 0) {
       return { draw: true };
     }
   },

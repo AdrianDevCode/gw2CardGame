@@ -1,5 +1,6 @@
 import React from 'react';
 import './BoardGame.css';
+import BotAI from '../botAI';
 import '../Card/Card.css';
 import Swal from 'sweetalert2';
 import axios from 'axios';
@@ -29,7 +30,6 @@ sortCards = cards =>{
   )
   return sortedCards;
 }
-
 componentWillMount(){
   let winnerCard = [];
     axios({
@@ -51,14 +51,14 @@ componentWillMount(){
     originalP1Cards: this.props.allPlayerCards
   })
 }
- 
-  onBoardClick = id => {
+onBoardClick = id => {
     if (this.isActive(id)) {
       this.props.moves.clickBoardCell(id);
       //this.props.events.endTurn();
+      
     }
-  };
-  playerDrawCard = id => {
+};
+playerDrawCard = id => {
     if(this.props.ctx.currentPlayer === "0"){
     let newCards = null;
     this.state.p1Cards.forEach(card => {
@@ -90,24 +90,91 @@ componentWillMount(){
   }
     this.props.moves.drawCard(id);
 }
-  
-
-  isActive(id) {
-    
-    return this.props.isActive && this.props.G.cells[id] === null;
-  };
+isActive(id) {
+  return this.props.isActive && this.props.G.cells[id] === null;
+};
   
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~RENDER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   render() {
+    // bot AI component ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  if(this.props.ctx.currentPlayer === "1"){
+    let aiChoices = BotAI(this.props.G.p2Deck, this.props.G.cells);
+    this.props.moves.drawCard(aiChoices[0]);
+    this.playerDrawCard(aiChoices[0]);
+    this.props.moves.clickBoardCell(aiChoices[1]);
+  }
+  //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  let createJSXCard = card => {
+    let colorCard = "";
+    card.color === "red" ? colorCard = "linear-gradient(to bottom right, rgb(150, 1, 14), rgb(238, 241, 242))" 
+    : colorCard = "linear-gradient(to bottom right, rgb(4, 52, 182), rgb(238, 241, 242))"   
+    let petName = card.petName.replace(/juvenile/i, "");
+    return( 
+        <div className='card-container active'  key={card.id}>
+            <div className="handle board-card"  style={{background: colorCard}} >
+                <div className="cardBorder">
+                    <div className="cardImage" style={{backgroundImage: `url(${card.petIcon})`}}>
+                        <div className="numbers">
+                            <div>{card.attackNumbers[0]}</div>
+                            <div>{card.attackNumbers[1]} {card.attackNumbers[2]}</div>
+                            <div>{card.attackNumbers[3]}</div>
+                        </div> 
+                    </div>
+                    <div className="frame-header">
+                    <h4 className="name">{petName}</h4>
+                    </div>
+                </div>       
+            </div>
+        </div>
+      
+    )
+  }
+  let renderCardOnBoard = (id) => {  
+    if(id !== null){
+      let newCard = ""; 
+      this.props.G.allDecks.forEach(card => {
+        if(id === card.id){     
+            newCard = createJSXCard(card);     
+        }
+      }
+    )
+    return newCard;
+    }
+  }
 
-    let createJSXCard = card => {
-      let colorCard = "";
-      card.color === "red" ? colorCard = "linear-gradient(to bottom right, rgb(150, 1, 14), rgb(238, 241, 242))" 
-      : colorCard = "linear-gradient(to bottom right, rgb(4, 52, 182), rgb(238, 241, 242))"   
+  let tbody = [];
+  for (let i = 0; i < 3; i++) {
+    let cells = [];
+    for (let j = 0; j < 3; j++) {
+      const id = 3 * i + j;
+      cells.push(
+        <td
+          key={id}
+          className={this.isActive(id) ? 'active' : ''}
+          onClick={() =>  {
+            this.onBoardClick(id)
+            
+            }}
+        >
+        <div>
+          {renderCardOnBoard(this.props.G.cells[id])}</div>
+        </td>
+      );
+      
+    }
+    tbody.push(<tr key={i}>{cells}</tr>);
+  }
+
+  const createJSXCards = cards => {
+    let colorCards= "";
+    this.state.p2Cards === cards ?  colorCards = `linear-gradient(to bottom right, rgb(150, 1, 14), rgb(238, 241, 242))`
+    : colorCards = `linear-gradient(to bottom right, rgb(4, 52, 182), rgb(238, 241, 242))`;
+
+    const cardsJSX = cards.map((card) => {         
       let petName = card.petName.replace(/juvenile/i, "");
       return( 
-          <div className='card-container active'  key={card.id}>
-              <div className="handle board-card"  style={{background: colorCard}} >
+          <div className='card-container active' onClick={() => {{this.playerDrawCard(card.id)}}} data-key={card.id}  key={card.id}>
+              <div className="handle board-card"  style={{background: colorCards}} >
                   <div className="cardBorder">
                       <div className="cardImage" style={{backgroundImage: `url(${card.petIcon})`}}>
                           <div className="numbers">
@@ -123,157 +190,94 @@ componentWillMount(){
               </div>
           </div>
         
-      )
+          )
+    })
+    return cardsJSX;
   }
-   let renderCardOnBoard = (id) => {  
-      if(id !== null){
-        let newCard = ""; 
-        this.props.G.allDecks.forEach(card => {
-          if(id === card.id){     
-             newCard = createJSXCard(card);     
-          }
-        }
-      )
-      return newCard;
-      }
-    }
-   
-    let tbody = [];
-    for (let i = 0; i < 3; i++) {
-      let cells = [];
-      for (let j = 0; j < 3; j++) {
-        const id = 3 * i + j;
-        cells.push(
-          <td
-            key={id}
-            className={this.isActive(id) ? 'active' : ''}
-            onClick={() =>  {
-              this.onBoardClick(id)
-              
-             }}
-          >
-          <div>
-            {renderCardOnBoard(this.props.G.cells[id])}</div>
-          </td>
-        );
-        
-      }
-      tbody.push(<tr key={i}>{cells}</tr>);
-    }
-    
-    const createJSXCards = cards => {
-      let colorCards= "";
-      this.state.p2Cards === cards ?  colorCards = `linear-gradient(to bottom right, rgb(150, 1, 14), rgb(238, 241, 242))`
-      : colorCards = `linear-gradient(to bottom right, rgb(4, 52, 182), rgb(238, 241, 242))`;
 
-      const cardsJSX = cards.map((card) => {         
-        let petName = card.petName.replace(/juvenile/i, "");
-        return( 
-            <div className='card-container active' onClick={() => {{this.playerDrawCard(card.id)}}} data-key={card.id}  key={card.id}>
-                <div className="handle board-card"  style={{background: colorCards}} >
-                    <div className="cardBorder">
-                        <div className="cardImage" style={{backgroundImage: `url(${card.petIcon})`}}>
-                            <div className="numbers">
-                                <div>{card.attackNumbers[0]}</div>
-                                <div>{card.attackNumbers[1]} {card.attackNumbers[2]}</div>
-                                <div>{card.attackNumbers[3]}</div>
-                            </div> 
-                        </div>
-                        <div className="frame-header">
-                        <h4 className="name">{petName}</h4>
-                        </div>
-                    </div>       
-                </div>
-            </div>
-          
-            )
-      })
-      return cardsJSX;
-    }
-
-    let winner = null;
-    if (this.props.ctx.gameover) {
-      winner = this.props.ctx.gameover.winner; 
-      let card = this.props.G.cardWon[0];
-      let petName = card.petName.replace(/juvenile/i, "");
-      let colorCard = "linear-gradient(to bottom right, rgb(2, 133, 72), rgb(238, 241, 242))";
-      if(winner === "ai"){
-        Swal({
-          title: "Sorry, You lost!",
-          confirmButtonText: "Back to Home"
-        }).then(result => {
-          if(result.value){
-            this.setState({
-              cards: this.state.originalP1Cards,
-              redirect: true,
-            })
-          }
-        })
-      }else {
-        Swal({
-        title: "You Won new Card!", 
-        html:`<div class="card-container active centerWonCard"  key=${card.id}> ` +
-            ` <div class="handle board-card"  style="background: ${colorCard}" > ` +
-                ` <div class="cardBorder"> ` +
-                    ` <div class="cardImage" style="background-image: url(${card.petIcon})" > ` +
-                        ` <div class="numbers"> ` +
-                            `<div>${card.attackNumbers[0]}</div> ` +
-                            `<div>${card.attackNumbers[1]} ${card.attackNumbers[2]}</div> ` +
-                            `<div>${card.attackNumbers[3]}</div> ` +
-                        `</div>` + 
-                    `</div> ` +
-                    `<div class="frame-header"> ` +
-                    `<h4 class="name">${petName}</h4> ` +
-                    `</div> ` +
-                `</div>` +       
-            `</div> ` +
-        `</div>`, 
+  let winner = null;
+  if (this.props.ctx.gameover) {
+    winner = this.props.ctx.gameover.winner; 
+    let card = this.props.G.cardWon[0];
+    let petName = card.petName.replace(/juvenile/i, "");
+    let colorCard = "linear-gradient(to bottom right, rgb(2, 133, 72), rgb(238, 241, 242))";
+    if(winner === "ai"){
+      Swal({
+        title: "Sorry, You lost!",
         confirmButtonText: "Back to Home"
-        }).then(result => {
-        if(result.value) {
-          axios({
-            method: 'post',
-            url: '/cards/addCardToUser',
-            data: {
-                card: card,
-                UserId: winner.toString(),  
-            }
+      }).then(result => {
+        if(result.value){
+          this.setState({
+            cards: this.state.originalP1Cards,
+            redirect: true,
           })
         }
-      }).then(() => {
-        this.setState({
-          cards: this.state.originalP1Cards.concat(this.props.G.cardWon),
-          redirect: true,
-        })
       })
-    }
+    }else {
+      Swal({
+      title: "You Won new Card!", 
+      html:`<div class="card-container active centerWonCard"  key=${card.id}> ` +
+          ` <div class="handle board-card"  style="background: ${colorCard}" > ` +
+              ` <div class="cardBorder"> ` +
+                  ` <div class="cardImage" style="background-image: url(${card.petIcon})" > ` +
+                      ` <div class="numbers"> ` +
+                          `<div>${card.attackNumbers[0]}</div> ` +
+                          `<div>${card.attackNumbers[1]} ${card.attackNumbers[2]}</div> ` +
+                          `<div>${card.attackNumbers[3]}</div> ` +
+                      `</div>` + 
+                  `</div> ` +
+                  `<div class="frame-header"> ` +
+                  `<h4 class="name">${petName}</h4> ` +
+                  `</div> ` +
+              `</div>` +       
+          `</div> ` +
+      `</div>`, 
+      confirmButtonText: "Back to Home"
+      }).then(result => {
+      if(result.value) {
+        axios({
+          method: 'post',
+          url: '/cards/addCardToUser',
+          data: {
+              card: card,
+              UserId: winner.toString(),  
+          }
+        })
+      }
+    }).then(() => {
+      this.setState({
+        cards: this.state.originalP1Cards.concat(this.props.G.cardWon),
+        redirect: true,
+      })
+    })
+  }
   }
 
-     if (this.state.redirect) {
-      return <Redirect to={{
-          pathname: '/home',
-          state: { referrer: this.state }
-        }}/>
+    if (this.state.redirect) {
+    return <Redirect to={{
+        pathname: '/home',
+        state: { referrer: this.state }
+      }}/>
   }
-    return (
-      <div className="border">
-        <div className="deckPlayer2">
-          <div className="cards">
-            {createJSXCards(this.state.p2Cards)}
-          </div>
+  return (
+    <div className="border">
+      <div className="deckPlayer2">
+        <div className="cards">
+          {createJSXCards(this.state.p2Cards)}
         </div>
-       <div className="board">
-          <table className="table">
-            <tbody className="tableBody">{tbody}</tbody>
-          </table>
-       </div>
-        <div className="deckPlayer1">
-          <div className="cards">
-            {createJSXCards(this.state.p1Cards)}
-          </div>
-        </div>  
       </div>
-    );
+      <div className="board">
+        <table className="table">
+          <tbody className="tableBody">{tbody}</tbody>
+        </table>
+      </div>
+      <div className="deckPlayer1">
+        <div className="cards">
+          {createJSXCards(this.state.p1Cards)}
+        </div>
+      </div>  
+    </div>
+  );
   }
 }
 
