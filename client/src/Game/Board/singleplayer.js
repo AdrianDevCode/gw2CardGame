@@ -25,22 +25,22 @@ function shuffle(array) {
 const App = Client({
   game: TicTacToe,
   board: Board,
-  ai: AI({
-    enumerate: (G, ctx) => {
-      let moves = [];
-      G.p2Deck.forEach((card) => {
-        moves.push({ move: 'drawCard', args: [card.id] });
-      });
-      for (let i = 0; i < 9; i++) {
-        if (G.cells[i] === null) {
-          moves.push({ move: 'clickBoardCell', args: [i] });
-        }
-      };
+  // ai: AI({
+  //   enumerate: (G, ctx) => {
+  //     let moves = [];
+  //     G.p2Deck.forEach((card) => {
+  //       moves.push({ move: 'drawCard', args: [card.id] });
+  //     });
+  //     for (let i = 0; i < 9; i++) {
+  //       if (G.cells[i] === null) {
+  //         moves.push({ move: 'clickBoardCell', args: [i] });
+  //       }
+  //     };
      
-      return moves;
-    },
-  }),
-  //debug: false,
+  //     return moves;
+  //   },
+  // }),
+  debug: false,
 });
 export default class Singleplayer extends Component {
   
