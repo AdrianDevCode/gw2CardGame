@@ -87,8 +87,8 @@ function boardCheck(G, allCards, cells, currentCardOnBoard, cardAttack){
     })
   })
   
-  return flipCards =(cardsAttack(currentCardAttack, adjacentCardsAttack, adjacentCardsPos, currentCardPos));
-  
+  flipCards =(cardsAttack(currentCardAttack, adjacentCardsAttack, adjacentCardsPos, currentCardPos));
+  return flipCards;
 }
 
 const TicTacToe = Game({

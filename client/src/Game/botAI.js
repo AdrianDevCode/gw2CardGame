@@ -1,3 +1,4 @@
+
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
   
@@ -13,17 +14,23 @@ function shuffle(array) {
       array[currentIndex] = array[randomIndex];
       array[randomIndex] = temporaryValue;
     }
-  
-    return array[0].id;
+    
+    return array[0];
   }
 const BotAI = (deck,cells) => {
+    let nullCells = [];
     let card = shuffle(deck);
-    let cell = cells.findIndex((cell) => {
-        return cell === null;   
-    })
-   console.log(cell)
-    let aiChoices = [card, cell];
+    let cell = 0;
+    cells.forEach((cell, index) => {
+        if(cell === null){
+            nullCells.push(index);
+        }
+    });
+    cell = shuffle(nullCells);
+    console.log(cell)
+    let aiChoices = [card.id, cell];
     return aiChoices;
+    
 }
 
 export default BotAI;
