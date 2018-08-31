@@ -4,6 +4,7 @@ import BotAI from '../botAI';
 import '../Card/Card.css';
 import Swal from 'sweetalert2';
 import axios from 'axios';
+import ReactTimeout from 'react-timeout';
 import { Redirect } from 'react-router-dom';
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Component BOARD GAME ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -19,7 +20,7 @@ class Board extends React.Component {
       redirect: false,
     }
   }
-  
+
 sortCards = cards =>{
   let color = "";
   cards === this.props.playerCards ? color= "blue" : color= "red";
@@ -98,10 +99,21 @@ isActive(id) {
   render() {
     // bot AI component ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   if(this.props.ctx.currentPlayer === "1"){
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    Swal({
+      title: "AI is thinking",
+      html: `<iframe src="https://giphy.com/embed/dUJXSHVAbkguI" width="${width}" height="${height}" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/geometry-circles-mograph-dUJXSHVAbkguI"></a></p>`,
+      timer: 2000,
+      background: "#0E1111",
+      width: width,
+      showConfirmButton: false
+    })
     let aiChoices = BotAI(this.props.G.p2Deck, this.props.G.cells);
     this.props.moves.drawCard(aiChoices[0]);
     this.playerDrawCard(aiChoices[0]);
-    this.props.moves.clickBoardCell(aiChoices[1]);
+    this.props.moves.clickBoardCell(aiChoices[1]); 
+    
   }
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   let createJSXCard = card => {
@@ -281,4 +293,4 @@ isActive(id) {
   }
 }
 
-export default Board;
+export default ReactTimeout(Board);

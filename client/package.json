@@ -15,6 +15,7 @@
     "react-render-html": "^0.6.0",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
+    "react-timeout": "^1.1.1",
     "reactjs-popup": "^1.2.0",
     "superagent": "^3.8.3",
     "sweetalert2": "^7.26.11"
